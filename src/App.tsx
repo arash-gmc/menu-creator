@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Menu from "./pages/Menu";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    axios
-      .get<string>("http://localhost:5000/hello")
-      .then((res) => setMessage(res.data));
-  });
-  return <h1>{message}</h1>;
+  const router = createBrowserRouter([
+    { path: "/menus/:restaurantName", element: <Menu /> },
+  ]);
+  const client = new QueryClient();
+  return (
+    <>
+      <QueryClientProvider client={client}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;
