@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../Providers";
+import { UserContext } from "../../Providers";
 
 const Dashboard = () => {
   const user = useContext(UserContext);

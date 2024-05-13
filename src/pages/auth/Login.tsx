@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import Form, { Input } from "./Form";
+import Form, { Input } from "../../components/Form";
 import { FieldValues } from "react-hook-form";
 import axios from "axios";
-import { User } from "../Providers";
+import { User } from "../../Providers";
 import { useNavigate } from "react-router-dom";
 
 interface LoginResponse {
