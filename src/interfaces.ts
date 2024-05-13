@@ -8,6 +8,10 @@ export interface Item {
 
 export interface Restaurant {
   id: string;
+  username: string;
   name: string;
-  displayName: string;
+}
+
+export interface BackendError{
+  message:string
 }

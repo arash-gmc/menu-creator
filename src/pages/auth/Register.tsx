@@ -14,18 +14,22 @@ const inputs: Input[] = [
 const Register = () => {
   const navigate = useNavigate();
   const register = useMutation({
-    mutationFn: (data) =>
-      axios.post("/api/restaurants/register", data).then((res) => res.data),
+    mutationFn: async (data) =>
+      axios
+        .post("/api/restaurants/register/", data)
+        .then((res) => res.data)
+        .catch((error) => console.log(error)),
     onSuccess: (res, sent) => {
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", JSON.stringify(res.user));
       navigate("/dashboard");
     },
+    onError: (error) => console.log(error),
   });
   const handleRegister = (data: FieldValues) => {
     const obj = {
-      name: data.username,
-      displayName: data.restaurantName,
+      username: data.username,
+      name: data.restaurantName,
       password: data.password,
     } as any;
     register.mutate(obj);

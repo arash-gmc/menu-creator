@@ -23,7 +23,7 @@ const Menu = () => {
   return (
     <div className="vazir bg-slate-800 text-white">
       <Container>
-        <h1 className="text-center text-2xl py-5">{restaurant?.displayName}</h1>
+        <h1 className="text-center text-2xl py-5">{restaurant?.name}</h1>
 
         {items?.map((item, index) => (
           <div key={item.id}>

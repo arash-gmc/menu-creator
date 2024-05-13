@@ -1,5 +1,5 @@
 import "./Form.css";
-import { Button, Flex } from "@radix-ui/themes";
+import { Box, Button, Callout, Flex } from "@radix-ui/themes";
 import { FieldValues, useForm } from "react-hook-form";
 
 export interface Input {
@@ -12,9 +12,10 @@ interface Props {
   inputs: Input[];
   passData: (data: FieldValues) => void;
   formName: string;
+  error?: string;
 }
 
-const Form = ({ inputs, passData, formName }: Props) => {
+const Form = ({ inputs, passData, formName, error }: Props) => {
   const { register, handleSubmit } = useForm();
   return (
     <div>
@@ -34,7 +35,15 @@ const Form = ({ inputs, passData, formName }: Props) => {
               className="px-5 bg-cyan-100"
             />
           ))}
-          <Flex justify="center" m="5">
+          <Flex justify="center" m="2" gap="2" direction="column">
+            <Box className="h-12">
+              {error && (
+                <Callout.Root color="red" size="1">
+                  <Callout.Icon></Callout.Icon>
+                  <Callout.Text>{error}</Callout.Text>
+                </Callout.Root>
+              )}
+            </Box>
             <Button size="3">{formName}</Button>
           </Flex>
         </Flex>

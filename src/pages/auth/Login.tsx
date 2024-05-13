@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Form, { Input } from "../../components/Form";
 import { FieldValues } from "react-hook-form";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { User } from "../../Providers";
 import { useNavigate } from "react-router-dom";
+import { BackendError } from "../../interfaces";
 
 interface LoginResponse {
   token: string;
@@ -17,6 +18,7 @@ const inputs: Input[] = [
 
 const Login = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState<string>();
   const handleLogin = (data: FieldValues) => {
     axios
       .post<LoginResponse>("/api/restaurants/login", {
@@ -27,13 +29,17 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/dashboard");
-      });
+      })
+      .catch((e: AxiosError<BackendError>) =>
+        setError(e.response?.data.message)
+      );
   };
   return (
     <Form
       inputs={inputs}
       passData={(data) => handleLogin(data)}
       formName="Login"
+      error={error}
     />
   );
 };
