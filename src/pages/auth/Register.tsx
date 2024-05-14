@@ -29,7 +29,7 @@ const Register = () => {
   const handleRegister = (data: FieldValues) => {
     const obj = {
       username: data.username,
-      name: data.restaurantName,
+      title: data.restaurantName,
       password: data.password,
     } as any;
     register.mutate(obj);

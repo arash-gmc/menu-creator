@@ -9,9 +9,9 @@ export interface Item {
 export interface Restaurant {
   id: string;
   username: string;
-  name: string;
+  title: string;
 }
 
-export interface BackendError{
-  message:string
+export interface BackendError {
+  message: string;
 }
