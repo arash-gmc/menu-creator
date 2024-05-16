@@ -1,4 +1,4 @@
-import "./Form.css";
+import "./AuthForm.css";
 import { Box, Button, Callout, Flex } from "@radix-ui/themes";
 import { FieldValues, useForm } from "react-hook-form";
 
@@ -15,7 +15,7 @@ interface Props {
   error?: string;
 }
 
-const Form = ({ inputs, passData, formName, error }: Props) => {
+const AuthForm = ({ inputs, passData, formName, error }: Props) => {
   const { register, handleSubmit } = useForm();
   return (
     <div>
@@ -52,4 +52,4 @@ const Form = ({ inputs, passData, formName, error }: Props) => {
   );
 };
 
-export default Form;
+export default AuthForm;

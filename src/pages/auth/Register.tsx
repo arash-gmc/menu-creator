@@ -1,5 +1,5 @@
 import React from "react";
-import Form, { Input } from "../../components/Form";
+import AuthForm, { Input } from "../../components/AuthForm";
 import { FieldValues } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -35,7 +35,7 @@ const Register = () => {
     register.mutate(obj);
   };
   return (
-    <Form
+    <AuthForm
       inputs={inputs}
       passData={(data) => handleRegister(data)}
       formName="Register"

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Form, { Input } from "../../components/Form";
+import AuthForm, { Input } from "../../components/AuthForm";
 import { FieldValues } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { User } from "../../Providers";
@@ -35,7 +35,7 @@ const Login = () => {
       );
   };
   return (
-    <Form
+    <AuthForm
       inputs={inputs}
       passData={(data) => handleLogin(data)}
       formName="Login"
