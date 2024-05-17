@@ -6,9 +6,10 @@ import { Data } from "./ItemForm";
 interface Props {
   items: string[];
   control: Control<Data, any>;
+  defaultOption: string;
 }
 
-const SelectComponent = ({ items, control }: Props) => {
+const SelectComponent = ({ items, control, defaultOption }: Props) => {
   return (
     <Flex direction="column">
       <Controller
@@ -18,13 +19,13 @@ const SelectComponent = ({ items, control }: Props) => {
           <Select.Root defaultValue="0" onValueChange={field.onChange}>
             <Select.Trigger />
             <Select.Content>
-              <Select.Item value="0">No Category</Select.Item>
-
               {items.map((item) => (
                 <Select.Item value={item} key={item}>
                   {item}
                 </Select.Item>
               ))}
+              <Select.Separator />
+              <Select.Item value="0">{defaultOption}</Select.Item>
             </Select.Content>
           </Select.Root>
         )}

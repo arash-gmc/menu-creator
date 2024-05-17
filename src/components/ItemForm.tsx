@@ -1,13 +1,20 @@
-import { Button, Flex, TextField } from "@radix-ui/themes";
+import { Button, Flex, TextField, Text } from "@radix-ui/themes";
 import SelectComponent from "./SelectComponent";
 import defaultCategories from "../data/defaultCategories";
 import "./ItemForm.css";
 import { UseFormReset, useForm } from "react-hook-form";
 import CalloutComponent from "./CalloutComponent";
 import { useState } from "react";
+import { AxiosError } from "axios";
+import Spinner from "./Spinner";
 
 interface Props {
-  onFormSubmit: (data: Data, onSuccess: () => void) => void;
+  onFormSubmit: (
+    data: Data,
+    onSuccess: (data: Data) => void,
+    onFail: (error: AxiosError) => void
+  ) => void;
+  isLoading?: boolean;
 }
 
 export interface Data {
@@ -17,51 +24,75 @@ export interface Data {
   description: string;
 }
 
-const ItemForm = ({ onFormSubmit }: Props) => {
+const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
   const [message, setMessage] = useState("");
   const [color, setColor] = useState<"green" | "red" | undefined>();
-  const { register, handleSubmit, control, resetField } = useForm<Data>();
-  const onSuccess = () => {
+  const { register, handleSubmit, control, resetField, formState } =
+    useForm<Data>();
+  const onSuccess = (data: Data) => {
     resetField("name");
     resetField("price");
     resetField("description");
-    setMessage("Your item has been added to the menu successfully.");
+    setMessage(`${data.name} has been added to the menu successfully.`);
     setColor("green");
   };
-  const resetFields = () => {};
+  const onFail = (error: AxiosError) => {
+    setMessage(`Something unexpected happened. Please try again later.`);
+    setColor("red");
+  };
   return (
     <div className="relative">
       <form
         onSubmit={handleSubmit((data) => {
-          onFormSubmit(data, onSuccess);
+          onFormSubmit(data, onSuccess, onFail);
         })}
       >
         <div className="grid grid-cols-6 gap-4">
-          <TextField.Root
-            {...register("name")}
-            placeholder="Name"
-            className="col-span-3"
-          />
-          <TextField.Root
-            type="number"
-            placeholder="Price"
-            className="col-span-1"
-            {...register("price")}
-          />
-
+          <Flex direction="column" className="col-span-3">
+            <TextField.Root
+              {...register("name", { required: true })}
+              placeholder="Name"
+              className="text-center"
+            />
+            {formState.errors.name && (
+              <Text size="1" mx="1" color="red">
+                *required
+              </Text>
+            )}
+          </Flex>
+          <Flex direction="column" className="col-span-1">
+            <TextField.Root
+              type="number"
+              min={0}
+              placeholder="Price"
+              {...register("price", { required: true, valueAsNumber: true })}
+            />
+            {formState.errors.price && (
+              <Text size="1" mx="1" color="red">
+                {formState.errors.price.type === "required" ? "*required" : ""}
+                {formState.errors.price.type === "valueAsNumber"
+                  ? "*enter a valid number"
+                  : ""}
+              </Text>
+            )}
+          </Flex>
           <div className="col-span-2">
-            <SelectComponent items={defaultCategories} control={control} />
+            <SelectComponent
+              items={defaultCategories}
+              control={control}
+              defaultOption="No Category"
+            />
           </div>
 
           <TextField.Root
             {...register("description")}
             className="col-span-6"
-            placeholder="description"
+            placeholder="Description"
           />
         </div>
         <Flex justify="center" mt="4">
-          <Button size="3" type="submit">
-            Add Item
+          <Button size="3" type="submit" disabled={isLoading}>
+            Add Item {isLoading && <Spinner />}
           </Button>
         </Flex>
       </form>
