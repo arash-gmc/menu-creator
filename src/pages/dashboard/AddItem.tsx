@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ItemForm, { Data } from "../../components/ItemForm";
 import { FieldValues, UseFormReset } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 const AddItem = () => {
   const [isSending, setSending] = useState(false);
+
   const addToserver = (
     data: Data,
     onSuccess: (data: Data) => void,
@@ -13,7 +14,10 @@ const AddItem = () => {
   ) => {
     setSending(true);
     axios
-      .post("/api/items/add-one", data)
+      .post("/api/items/add-one", {
+        ...data,
+        category: data.category === "-" ? null : data.category,
+      })
       .then((res) => {
         console.log(res.data);
         onSuccess(res.data);

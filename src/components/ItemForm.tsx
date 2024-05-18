@@ -1,6 +1,5 @@
 import { Button, Flex, TextField, Text } from "@radix-ui/themes";
-import SelectComponent from "./SelectComponent";
-import defaultCategories from "../data/defaultCategories";
+import SelectCategory from "./SelectCategory";
 import "./ItemForm.css";
 import { UseFormReset, useForm } from "react-hook-form";
 import CalloutComponent from "./CalloutComponent";
@@ -47,8 +46,8 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
           onFormSubmit(data, onSuccess, onFail);
         })}
       >
-        <div className="grid grid-cols-6 gap-4">
-          <Flex direction="column" className="col-span-3">
+        <div className="grid grid-cols-6 gap-3">
+          <Flex direction="column" className="col-span-3 max-md:col-span-4">
             <TextField.Root
               {...register("name", { required: true })}
               placeholder="Name"
@@ -60,7 +59,7 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
               </Text>
             )}
           </Flex>
-          <Flex direction="column" className="col-span-1">
+          <Flex direction="column" className="col-span-1 max-md:col-span-2">
             <TextField.Root
               type="number"
               min={0}
@@ -76,12 +75,8 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
               </Text>
             )}
           </Flex>
-          <div className="col-span-2">
-            <SelectComponent
-              items={defaultCategories}
-              control={control}
-              defaultOption="No Category"
-            />
+          <div className="col-span-2 max-md:col-span-6">
+            <SelectCategory control={control} genericOption="No Category" />
           </div>
 
           <TextField.Root
