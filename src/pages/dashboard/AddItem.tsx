@@ -31,7 +31,11 @@ const AddItem = () => {
 
   return (
     <div>
-      <ItemForm onFormSubmit={addToserver} isLoading={isSending} />
+      <ItemForm
+        application="add"
+        onFormSubmit={addToserver}
+        isLoading={isSending}
+      />
     </div>
   );
 };

@@ -3,17 +3,22 @@ import SelectCategory from "./SelectCategory";
 import "./ItemForm.css";
 import { UseFormReset, useForm } from "react-hook-form";
 import CalloutComponent from "./CalloutComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import Spinner from "./Spinner";
+import { Item } from "../interfaces";
+import DeleteItemButton from "./DeleteItemButton";
 
 interface Props {
+  application: "add" | "update";
   onFormSubmit: (
     data: Data,
     onSuccess: (data: Data) => void,
     onFail: (error: AxiosError) => void
   ) => void;
   isLoading?: boolean;
+  initialData?: Item;
+  reset?: () => void;
 }
 
 export interface Data {
@@ -23,11 +28,25 @@ export interface Data {
   description: string;
 }
 
-const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
+const ItemForm = ({
+  onFormSubmit,
+  isLoading,
+  initialData,
+  application,
+  reset,
+}: Props) => {
   const [message, setMessage] = useState("");
   const [color, setColor] = useState<"green" | "red" | undefined>();
-  const { register, handleSubmit, control, resetField, formState } =
+  const { register, handleSubmit, control, resetField, formState, setValue } =
     useForm<Data>();
+  useEffect(() => {
+    if (initialData) {
+      setValue("name", initialData.name);
+      setValue("price", initialData.price);
+      setValue("description", initialData.description);
+      setValue("category", initialData.category);
+    }
+  }, [initialData]);
   const onSuccess = (data: Data) => {
     resetField("name");
     resetField("price");
@@ -39,6 +58,7 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
     setMessage(`Something unexpected happened. Please try again later.`);
     setColor("red");
   };
+
   return (
     <div className="relative">
       <form
@@ -53,6 +73,7 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
               placeholder="Name"
               className="text-center"
             />
+
             {formState.errors.name && (
               <Text size="1" mx="1" color="red">
                 *required
@@ -76,7 +97,13 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
             )}
           </Flex>
           <div className="col-span-2 max-md:col-span-6">
-            <SelectCategory control={control} genericOption="No Category" />
+            <SelectCategory
+              control={control}
+              genericOption="No Category"
+              changeCategory={(category: string) => {
+                if (category) setValue("category", category);
+              }}
+            />
           </div>
 
           <TextField.Root
@@ -85,10 +112,29 @@ const ItemForm = ({ onFormSubmit, isLoading }: Props) => {
             placeholder="Description"
           />
         </div>
-        <Flex justify="center" mt="4">
-          <Button size="3" type="submit" disabled={isLoading}>
-            Add Item {isLoading && <Spinner />}
-          </Button>
+        <Flex justify="center" mt="4" gap="5">
+          {application === "add" && (
+            <Button size="3" type="submit" disabled={isLoading}>
+              Add Item
+              {isLoading && <Spinner />}
+            </Button>
+          )}
+          {application === "update" && (
+            <>
+              <Button size="3" type="submit" disabled={isLoading}>
+                Update Item
+                {isLoading && <Spinner />}
+              </Button>
+              <DeleteItemButton
+                itemId={initialData!.id}
+                onSuccess={() => {
+                  setMessage("Your item has been deleted successfully.");
+                  setColor("green");
+                  if (reset) reset();
+                }}
+              />
+            </>
+          )}
         </Flex>
       </form>
       <div className="absolute -bottom-28 w-full">

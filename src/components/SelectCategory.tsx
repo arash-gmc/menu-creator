@@ -16,11 +16,16 @@ import axios from "axios";
 interface Props {
   control: Control<Data, any>;
   genericOption: string;
+  changeCategory: (category: string) => void;
 }
 
-const SelectCategory = ({ control, genericOption }: Props) => {
+const SelectCategory = ({
+  control,
+  genericOption,
+  changeCategory: changeCategory,
+}: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectValue, setSelectValue] = useState<string | undefined>();
+
   const newCategoryRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     axios
@@ -31,9 +36,9 @@ const SelectCategory = ({ control, genericOption }: Props) => {
   const addCategory = () => {
     const newCategory = newCategoryRef.current?.value;
     if (!newCategory) return;
-    if (categories.includes(newCategory)) return setSelectValue(newCategory);
+    if (categories.includes(newCategory)) return changeCategory(newCategory);
     setCategories((prev) => [newCategory, ...prev]);
-    setSelectValue(newCategory);
+    setTimeout(() => changeCategory(newCategory), 100);
   };
   if (!categories) return null;
   return (
@@ -44,7 +49,7 @@ const SelectCategory = ({ control, genericOption }: Props) => {
             name="category"
             control={control}
             render={({ field }) => (
-              <Select.Root onValueChange={field.onChange} value={selectValue}>
+              <Select.Root onValueChange={field.onChange} value={field.value}>
                 <Select.Trigger placeholder="Category" />
                 <Select.Content>
                   <Select.Item value="-">{genericOption}</Select.Item>
