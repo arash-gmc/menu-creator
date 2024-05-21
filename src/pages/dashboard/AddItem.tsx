@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ItemForm, { Data } from "../../components/ItemForm";
-import { FieldValues, UseFormReset } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 const AddItem = () => {
@@ -19,7 +17,6 @@ const AddItem = () => {
         category: data.category === "-" ? null : data.category,
       })
       .then((res) => {
-        console.log(res.data);
         onSuccess(res.data);
       })
       .catch((error: AxiosError) => {

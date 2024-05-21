@@ -6,20 +6,11 @@ import { UserContext } from "../../Providers";
 import { Item } from "../../interfaces";
 import ItemSelector from "../../components/ItemSelector";
 import ItemForm, { Data } from "../../components/ItemForm";
+import useItems from "../../hooks/useItems";
 
 const EditItem = () => {
-  const user = useContext(UserContext);
   const [selectedId, setSelectedId] = useState<string>();
-
-  const {
-    data: items,
-    isLoading,
-    isError,
-  } = useQuery<Item[]>({
-    queryKey: ["items", user?.name],
-    queryFn: () =>
-      axios.get("/api/items/get/" + user?.name).then((res) => res.data),
-  });
+  const { data: items, isLoading } = useItems();
 
   const onSelect = (id: string) => {
     setSelectedId(id);
