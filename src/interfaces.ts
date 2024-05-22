@@ -4,6 +4,8 @@ export interface Item {
   price: number;
   category: string;
   description: string;
+  offPercent: number;
+  offDueDate: Date;
 }
 
 export interface Restaurant {

@@ -1,6 +1,6 @@
 import { Button, Flex, TextField, Text } from "@radix-ui/themes";
 import SelectCategory from "./SelectCategory";
-import "./ItemForm.css";
+import "./disableDefaultForm.css";
 import { UseFormReset, useForm } from "react-hook-form";
 import CalloutComponent from "./CalloutComponent";
 import { useEffect, useState } from "react";

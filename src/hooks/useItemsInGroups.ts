@@ -2,12 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Item } from "../interfaces";
 
-const useItemsInGroups = (items: Item[] | undefined) => {
-  const [itemGroups, setItemGroups] = useState<Item[][]>();
+interface input extends Item {
+  isChecked: boolean;
+  [key: string]: any;
+}
+
+const useItemsInGroups = (items: input[] | undefined) => {
+  const [itemGroups, setItemGroups] = useState<input[][]>();
   useEffect(() => {
     if (items) {
-      const outer: Item[][] = [];
-      let inner: Item[] = [];
+      const outer: input[][] = [];
+      let inner: input[] = [];
       items.forEach((item, index) => {
         if (index === items.length - 1) return outer.push(inner);
         inner.push(item);

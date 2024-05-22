@@ -9,9 +9,9 @@ import {
 } from "@radix-ui/themes";
 import React, { useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
-import { Data } from "./ItemForm";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Data } from "../pages/dashboard/Discount";
 
 export interface SelectData {
   value: string;
@@ -19,13 +19,14 @@ export interface SelectData {
 }
 
 interface Props {
-  control: Control<FieldValues, any>;
+  control: Control<Data, any>;
   options: SelectData[];
   placeholder?: string;
-  name: string;
+  name: "percent" | "dueDays";
+  disabled?: boolean;
 }
 
-const Selector = ({ control, options, placeholder, name }: Props) => {
+const Selector = ({ control, options, placeholder, name, disabled }: Props) => {
   return (
     <div className="w-full">
       <Flex direction="column">
@@ -33,7 +34,7 @@ const Selector = ({ control, options, placeholder, name }: Props) => {
           name={name}
           control={control}
           render={({ field }) => (
-            <Select.Root onValueChange={field.onChange}>
+            <Select.Root onValueChange={field.onChange} disabled={disabled}>
               <Select.Trigger placeholder={placeholder || "Select One"} />
               <Select.Content>
                 {options.map((option) => (
