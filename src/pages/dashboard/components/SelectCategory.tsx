@@ -19,11 +19,7 @@ interface Props {
   changeCategory: (category: string) => void;
 }
 
-const SelectCategory = ({
-  control,
-  genericOption,
-  changeCategory: changeCategory,
-}: Props) => {
+const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
 
   const newCategoryRef = useRef<HTMLInputElement>(null);

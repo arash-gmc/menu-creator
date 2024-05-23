@@ -1,32 +1,34 @@
-import { Flex, Select } from "@radix-ui/themes";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Flex } from "@radix-ui/themes";
 import axios, { AxiosError } from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../Providers";
-import { Item } from "../../interfaces";
-import ItemSelector from "../../components/ItemSelector";
-import ItemForm, { Data } from "../../components/ItemForm";
+import { useState } from "react";
+import ItemForm, { Data } from "./components/ItemForm";
+import ItemSelector from "./components/ItemSelector";
 import useItems from "../../hooks/useItems";
+import useMyStore from "../../store";
+import toast from "react-hot-toast";
 
 const EditItem = () => {
-  const [selectedId, setSelectedId] = useState<string>();
   const { data: items, isLoading } = useItems();
+  const selectedId = useMyStore((s) => s.editingItemId);
 
-  const onSelect = (id: string) => {
-    setSelectedId(id);
-  };
   const editOnServer = (
     data: Data,
     onSuccess: (data: Data) => void,
     onFail: (error: AxiosError) => void
   ) => {
-    console.log(data);
+    const updateObj = {
+      ...data,
+      id: selectedId,
+      category: data.category === "-" ? null : data.category,
+    };
+    axios.put("/api/items/edit-one", updateObj).then();
+    toast.success("Your Item has been updated successfully.");
   };
 
   return (
     <div>
       <Flex direction="column" mb="5">
-        <ItemSelector items={items} onSelect={onSelect} />
+        <ItemSelector items={items} />
       </Flex>
       {selectedId && (
         <ItemForm
@@ -34,7 +36,6 @@ const EditItem = () => {
           isLoading={isLoading}
           onFormSubmit={editOnServer}
           initialData={items?.find((item) => item.id === selectedId)}
-          reset={() => setSelectedId(undefined)}
         />
       )}
     </div>

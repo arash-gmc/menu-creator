@@ -1,5 +1,3 @@
-import React from "react";
-
 const EmbededMenu = ({ name }: { name: string }) => {
   return (
     <div style={{ transform: `scale(0.7)` }}>

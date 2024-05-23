@@ -11,7 +11,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Data } from "../pages/dashboard/Discount";
+import { Data } from "../Discount";
 
 export interface SelectData {
   value: string;

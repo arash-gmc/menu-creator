@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ItemForm, { Data } from "../../components/ItemForm";
+import ItemForm, { Data } from "./components/ItemForm";
 import axios, { AxiosError } from "axios";
 
 const AddItem = () => {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../Providers";
-import EmbededMenu from "../../components/EmbededMenu";
+import EmbededMenu from "./components/EmbededMenu";
 import { Flex, Text } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 

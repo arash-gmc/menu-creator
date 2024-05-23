@@ -1,20 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Item } from "../interfaces";
+import useMyStore from "../store";
 
-interface input extends Item {
-  isChecked: boolean;
-  [key: string]: any;
-}
-
-const useItemsInGroups = (items: input[] | undefined) => {
-  const [itemGroups, setItemGroups] = useState<input[][]>();
+const useItemsInGroups = (items: Item[] | undefined) => {
+  //const [itemGroups, setItemGroups] = useState<Item[][]>();
+  const { itemGroups, setItemGroups } = useMyStore();
   useEffect(() => {
     if (items) {
-      const outer: input[][] = [];
-      let inner: input[] = [];
+      const outer: Item[][] = [];
+      let inner: Item[] = [];
       items.forEach((item, index) => {
-        if (index === items.length - 1) return outer.push(inner);
+        if (index === items.length - 1) {
+          inner.push(item);
+          outer.push(inner);
+          return;
+        }
         inner.push(item);
         if (item.category !== items[index + 1].category) {
           outer.push(inner);

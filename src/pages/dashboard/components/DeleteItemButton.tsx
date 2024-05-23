@@ -3,26 +3,25 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
-import { Item } from "../interfaces";
-import { UserContext } from "../Providers";
+import { Item } from "../../../interfaces";
+import { UserContext } from "../../../Providers";
+import toast from "react-hot-toast";
+import useMyStore from "../../../store";
 
 interface Props {
-  itemId?: string;
-  onSuccess: () => void;
+  itemId: string;
+  itemCategory: string | null;
 }
 
-const DeleteItemButton = ({ itemId, onSuccess }: Props) => {
-  const navigate = useNavigate();
+const DeleteItemButton = ({ itemId, itemCategory }: Props) => {
   const user = useContext(UserContext);
   const queryClient = useQueryClient();
+  const { setEditingItemId, removeItemGroup } = useMyStore();
   const deleteItem = () => {
     axios.delete("/api/items/delete/" + itemId).then((res) => {
-      onSuccess();
-      queryClient.invalidateQueries({ queryKey: ["items", user?.name] });
-      // setTimeout(() => navigate("/dashboard"), 2000);
-      // setTimeout(() => {
-      //   navigate("edit");
-      // }, 2500);
+      setEditingItemId(undefined);
+      removeItemGroup(itemId, itemCategory);
+      toast.success("Your Item has been deleted successfully.");
     });
   };
   return (

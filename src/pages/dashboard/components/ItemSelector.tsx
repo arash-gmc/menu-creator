@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Item } from "../interfaces";
-import { Select } from "@radix-ui/themes";
-import useItemsInGroups from "../hooks/useItemsInGroups";
+import { Item } from "../../../interfaces";
+import { Button, Flex, Select } from "@radix-ui/themes";
+import useItemsInGroups from "../../../hooks/useItemsInGroups";
+import useMyStore from "../../../store";
 
 interface Props {
   items: Item[] | undefined;
-  onSelect: (id: string) => void;
 }
 
-const ItemSelector = ({ items, onSelect }: Props) => {
+const ItemSelector = ({ items }: Props) => {
   const { itemGroups } = useItemsInGroups(items);
+  const { setEditingItemId, editingItemId } = useMyStore();
   if (!itemGroups) return null;
   return (
-    <Select.Root onValueChange={(e) => onSelect(e.valueOf())}>
+    <Select.Root
+      onValueChange={(e) => setEditingItemId(e.valueOf())}
+      defaultValue={editingItemId}
+    >
       <Select.Trigger placeholder="Choose an Item" />
       <Select.Content>
         {itemGroups.map((group) => (

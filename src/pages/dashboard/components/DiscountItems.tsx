@@ -1,5 +1,5 @@
 import { Box, Checkbox, Flex, Text } from "@radix-ui/themes";
-import { ItemCheck } from "../pages/dashboard/Discount";
+import { ItemCheck } from "../Discount";
 
 interface Props {
   discount: number;
