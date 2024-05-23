@@ -12,7 +12,7 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
     Math.floor(oldPrice * (1 - percent / 100));
 
   return (
-    <Box p={{ initial: "1", md: "5" }} m={{ initial: "1", md: "5" }}>
+    <Box px={{ initial: "1", md: "5" }} mx="2">
       <Flex direction="column">
         {items?.map((item, index) => (
           <div key={item.id}>

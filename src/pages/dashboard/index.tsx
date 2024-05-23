@@ -4,6 +4,7 @@ import { Box, Container, Flex, Tabs, Text } from "@radix-ui/themes";
 import Navbar from "../../components/Navbar";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Profile from "./Profile";
+import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const user = useContext(UserContext);
@@ -22,6 +23,7 @@ const Dashboard = () => {
             <Outlet />
           </Box>
         </Flex>
+        <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
       </Container>
     </>
   );
