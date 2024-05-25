@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { Flex, Text } from "@radix-ui/themes";
+import React, { ReactNode, useContext } from "react";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { PiListPlusBold } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
@@ -7,6 +7,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoQrCode, IoStatsChart } from "react-icons/io5";
 import { MdOutlineAccountCircle, MdRestaurantMenu } from "react-icons/md";
+import { UserContext } from "../Providers";
 
 interface Item {
   name: string;
@@ -26,17 +27,23 @@ const items: Item[] = [
 const NavbarIcons = () => {
   const { pathname } = useLocation();
   const section = pathname.split("/")[2];
+  const user = useContext(UserContext);
+  if (!user) return null;
   return (
-    <Flex gap="2">
+    <Flex
+      gap={{ initial: "0", md: "2" }}
+      direction={{ initial: "column", md: "row" }}
+    >
       {items.map((item) => (
         <Link to={"/dashboard/" + item.name} key={item.name}>
           <Flex
-            direction="column"
+            direction={{ md: "column" }}
             align="center"
+            gap="2"
             className={
-              "w-20 pb-2 pt-2 px-2 " +
+              "lg:w-20 p-2 " +
               (section === item.name
-                ? "bg-white text-orange-700 rounded-t-2xl"
+                ? "bg-white text-orange-700 lg:rounded-t-2xl"
                 : "")
             }
           >
@@ -47,6 +54,14 @@ const NavbarIcons = () => {
           </Flex>
         </Link>
       ))}
+      <Flex align="center" gap="3">
+        <Avatar
+          fallback={user.name[0].toUpperCase()}
+          color="indigo"
+          variant="solid"
+        />
+        <Text>{user.name}</Text>
+      </Flex>
     </Flex>
   );
 };
