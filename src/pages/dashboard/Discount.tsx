@@ -1,4 +1,4 @@
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, Flex, Grid, Heading } from "@radix-ui/themes";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -64,9 +64,7 @@ const Discount = () => {
         itemIds,
       })
       .then(() => {
-        setItems((prev) =>
-          prev?.map((item) => ({ ...item, isChecked: false }))
-        );
+        changeCheckAll("uncheck");
         refetch();
         toast.success("Your discounts has been submitted.");
       })
@@ -80,6 +78,12 @@ const Discount = () => {
     if (!discount && discount !== 0) return;
     setItems((prev) =>
       prev?.map((i) => (i.id === itemId ? { ...i, isChecked: status } : i))
+    );
+  };
+
+  const changeCheckAll = (status: "check" | "uncheck") => {
+    setItems((prev) =>
+      prev?.map((item) => ({ ...item, isChecked: status === "check" }))
     );
   };
 
@@ -109,36 +113,55 @@ const Discount = () => {
   const discount = Number(watch("percent"));
 
   return (
-    <div className="grid grid-cols-4 gap-y-8 gap-x-2">
-      <div className="col-span-3 max-md:col-span-4">
-        <DiscountItems
-          discount={discount}
-          handleCheckChange={handleCheckChange}
-          items={items}
-        />
-      </div>
-      <div className="col-span-1 max-md:mx-10 max-md:col-span-4">
-        <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-          <Flex direction="column" gap="4">
-            <Selector
-              control={control}
-              name="percent"
-              placeholder="Discount Persent"
-              options={percents}
-            />
-            <Selector
-              disabled={watch("percent") === "0"}
-              placeholder="Days until end"
-              control={control}
-              name="dueDays"
-              options={dueDate}
-            />
-            <Button disabled={isApplyDisable()}>Apply Discounts</Button>
-            <Button type="button" onClick={() => removeAllDiscounts()}>
-              Remove All Discounts
-            </Button>
-          </Flex>
-        </form>
+    <div>
+      <Heading>Set Discount</Heading>
+      <div className="grid grid-cols-4 gap-y-8 gap-x-2">
+        <div className="col-span-3 max-md:col-span-4">
+          <DiscountItems
+            discount={discount}
+            handleCheckChange={handleCheckChange}
+            items={items}
+          />
+        </div>
+        <div className="col-span-1 max-md:mx-10 max-md:col-span-4">
+          <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+            <Flex direction="column" gap="4">
+              <Selector
+                control={control}
+                name="percent"
+                placeholder="Discount Persent"
+                options={percents}
+              />
+              <Selector
+                disabled={watch("percent") === "0"}
+                placeholder="Days until end"
+                control={control}
+                name="dueDays"
+                options={dueDate}
+              />
+              <Button disabled={isApplyDisable()}>Apply Discounts</Button>
+              <Grid columns="2" gap="3">
+                <Button
+                  disabled={!watch("percent")}
+                  type="button"
+                  onClick={() => changeCheckAll("check")}
+                >
+                  Check All
+                </Button>
+                <Button
+                  disabled={!watch("percent")}
+                  type="button"
+                  onClick={() => changeCheckAll("uncheck")}
+                >
+                  Uncheck All
+                </Button>
+              </Grid>
+              <Button type="button" onClick={() => removeAllDiscounts()}>
+                Remove All Discounts
+              </Button>
+            </Flex>
+          </form>
+        </div>
       </div>
     </div>
   );

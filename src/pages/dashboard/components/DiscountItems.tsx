@@ -1,4 +1,4 @@
-import { Box, Checkbox, Flex, Text } from "@radix-ui/themes";
+import { Box, Checkbox, Flex, Grid, Text } from "@radix-ui/themes";
 import { ItemCheck } from "../Discount";
 
 interface Props {
@@ -12,7 +12,7 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
     Math.floor(oldPrice * (1 - percent / 100));
 
   return (
-    <Box px={{ initial: "1", md: "5" }} mx="2">
+    <Box px={{ initial: "1", md: "5" }} mx={{ initial: "0", md: "2" }}>
       <Flex direction="column">
         {items?.map((item, index) => (
           <div key={item.id}>
@@ -29,11 +29,23 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
               </Flex>
             )}
 
-            <div className="grid grid-cols-5" key={item.id}>
-              <div className="col-span-3">
-                <Flex key={item.id} mx="4" my="2" align="center" gap="2">
+            <Grid
+              columns={{
+                initial: "1fr 2rem 2rem 4rem",
+                md: "1fr 4rem 4rem 6rem",
+              }}
+              gap="3"
+              align="center"
+            >
+              <Box>
+                <Flex
+                  mx={{ initial: "0", md: "4" }}
+                  my="2"
+                  align="center"
+                  gap="2"
+                >
                   <Checkbox
-                    defaultChecked={item.isChecked}
+                    checked={item.isChecked}
                     onCheckedChange={(e) =>
                       handleCheckChange(item.id, !!e.valueOf())
                     }
@@ -41,8 +53,8 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
                   />
                   <Text mx="2">{item.name}</Text>
                 </Flex>
-              </div>
-              <div className="col-span-2">
+              </Box>
+              <Box>
                 <Text
                   className={
                     discount === 0 && item.isChecked
@@ -57,7 +69,9 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
                 >
                   {item.price}
                 </Text>
-                <Text weight="bold" ml="6">
+              </Box>
+              <Box>
+                <Text weight="bold">
                   {discount === 0 && item.isChecked
                     ? ""
                     : item.isChecked
@@ -66,7 +80,9 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
                     ? newPrice(item.price, item.offPercent)
                     : ""}
                 </Text>
-                <Text size="1" ml="6">
+              </Box>
+              <Box>
+                <Text size="1">
                   {discount == 0 && item.isChecked
                     ? ""
                     : item.isChecked
@@ -75,8 +91,8 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
                     ? `${item.offPercent}% off`
                     : ""}
                 </Text>
-              </div>
-            </div>
+              </Box>
+            </Grid>
           </div>
         ))}
       </Flex>
