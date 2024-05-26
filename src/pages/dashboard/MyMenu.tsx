@@ -8,14 +8,16 @@ import QRCode from "../../components/QRCode";
 const MyMenu = () => {
   const user = useContext(UserContext);
   if (!user) return null;
-  const url = "http://localhost:5173/m/" + user.name;
+  const url = import.meta.env.VITE_FRONTEND_URL + "/m/" + user.name;
   return (
     <Flex direction="column" align="start" p="5">
       <Flex>
         <Text size="6" weight="bold">
           Menu URL:{" "}
         </Text>
-        <Link to={url}>Link to Menu</Link>
+        <Link target="_blank" to={url}>
+          Link to Menu
+        </Link>
       </Flex>
       <EmbededMenu name={user.name} />
       <QRCode url={url} />

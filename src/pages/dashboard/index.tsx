@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
-import { UserContext } from "../../Providers";
-import { Box, Container, Flex, Tabs, Text } from "@radix-ui/themes";
-import Navbar from "../../components/Navbar";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-import Profile from "./Profile";
+import { Box, Container, Flex } from "@radix-ui/themes";
 import { Toaster } from "react-hot-toast";
+import { Outlet } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 const Dashboard = () => {
-  const user = useContext(UserContext);
   return (
     <>
       <Navbar />
