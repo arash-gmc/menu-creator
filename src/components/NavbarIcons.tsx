@@ -54,13 +54,13 @@ const NavbarIcons = () => {
           </Flex>
         </Link>
       ))}
-      <Flex align="center" gap="3">
+      <Flex align="center" justify="end" gap="3" p="2">
+        <Text weight="bold">{user.name}</Text>
         <Avatar
           fallback={user.name[0].toUpperCase()}
           color="indigo"
           variant="solid"
         />
-        <Text>{user.name}</Text>
       </Flex>
     </Flex>
   );
