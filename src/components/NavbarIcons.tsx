@@ -39,9 +39,10 @@ const NavbarIcons = () => {
           <Flex
             direction={{ md: "column" }}
             align="center"
+            justify="center"
             gap="2"
             className={
-              "lg:w-20 p-2 " +
+              "lg:w-20 p-2 max-lg:border-b-2 " +
               (section === item.name
                 ? "bg-white text-orange-700 lg:rounded-t-2xl"
                 : "")
@@ -54,13 +55,13 @@ const NavbarIcons = () => {
           </Flex>
         </Link>
       ))}
-      <Flex align="center" justify="end" gap="3" p="2">
-        <Text weight="bold">{user.name}</Text>
+      <Flex align="center" justify="center" gap="3" p="2">
         <Avatar
           fallback={user.name[0].toUpperCase()}
           color="indigo"
           variant="solid"
         />
+        <Text weight="bold">{user.name}</Text>
       </Flex>
     </Flex>
   );

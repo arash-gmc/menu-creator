@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Item, Restaurant } from "../interfaces";
 import { Container, Flex, Text } from "@radix-ui/themes";
 import axios from "axios";
@@ -20,6 +20,20 @@ const Menu = () => {
         .get("/api/restaurants/get/" + restaurantName)
         .then((res) => res.data),
   });
+  const [searchParams] = useSearchParams();
+  const interance = searchParams.get("i");
+  useEffect(() => {
+    if (restaurant)
+      axios
+        .post("/api/restaurants/add-view", {
+          restaurantId: restaurant?.id,
+          interance,
+        })
+        .then((r) => console.log("successfull"))
+        .catch((e) =>
+          console.log("There is a problem with add view record.", e)
+        );
+  }, [restaurant]);
   return (
     <div className="vazir bg-slate-800 text-white">
       <Container>

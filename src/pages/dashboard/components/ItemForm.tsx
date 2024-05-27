@@ -112,7 +112,11 @@ const ItemForm = ({
       </div>
       <Flex justify="center" mt="4" gap="5">
         {application === "add" && (
-          <Button size="3" type="submit" disabled={isLoading}>
+          <Button
+            size={{ initial: "2", md: "3" }}
+            type="submit"
+            disabled={isLoading}
+          >
             Add Item
             {isLoading && <Spinner />}
           </Button>
