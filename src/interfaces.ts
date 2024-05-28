@@ -4,6 +4,7 @@ export interface Item {
   price: number;
   category: string;
   description: string;
+  photoPublicId ?: string;
   offPercent: number;
   offDueDate: Date;
 }

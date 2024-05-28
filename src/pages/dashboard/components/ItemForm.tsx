@@ -8,6 +8,8 @@ import DeleteItemButton from "./DeleteItemButton";
 import SelectCategory from "./SelectCategory";
 import Spinner from "../../../components/Spinner";
 import "./disableDefaultForm.css";
+import UploadWidget from "../../../components/UploadWidget";
+import { FaCircleCheck } from "react-icons/fa6";
 
 interface Props {
   application: "add" | "update";
@@ -25,6 +27,7 @@ export interface Data {
   price: number;
   category: string;
   description: string;
+  photoPublicId?: string;
 }
 
 const ItemForm = ({
@@ -36,6 +39,7 @@ const ItemForm = ({
   const { register, handleSubmit, control, resetField, formState, setValue } =
     useForm<Data>();
   const [showSelector, setShowSelector] = useState(false);
+  const [photoPublictId, setPhotoPublicId] = useState<string>();
   useEffect(() => {
     if (initialData) {
       setValue("name", initialData.name);
@@ -43,12 +47,14 @@ const ItemForm = ({
       setValue("description", initialData.description);
       setValue("category", initialData.category);
       setShowSelector(true);
+      setPhotoPublicId(initialData?.photoPublicId);
     }
   }, [initialData]);
   const onSuccess = (data: Data) => {
     resetField("name");
     resetField("price");
     resetField("description");
+    setPhotoPublicId(undefined);
     toast.success(`${data.name} has been added to the menu successfully.`);
   };
   const onFail = (error: AxiosError) => {
@@ -59,7 +65,11 @@ const ItemForm = ({
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        onFormSubmit(data, onSuccess, onFail);
+        onFormSubmit(
+          { ...data, photoPublicId: photoPublictId },
+          onSuccess,
+          onFail
+        );
       })}
     >
       <div className="grid grid-cols-6 gap-3">
@@ -109,6 +119,19 @@ const ItemForm = ({
           className="col-span-6"
           placeholder="Description"
         />
+        <Flex gap="3" px="2" align="center">
+          <Text wrap="nowrap">Item Photo</Text>
+          <UploadWidget
+            onUploadDone={(publicId) => setPhotoPublicId(publicId)}
+            folder="items"
+          />
+
+          {photoPublictId && (
+            <Text color="green" ml="3">
+              <FaCircleCheck />
+            </Text>
+          )}
+        </Flex>
       </div>
       <Flex justify="center" mt="4" gap="5">
         {application === "add" && (
