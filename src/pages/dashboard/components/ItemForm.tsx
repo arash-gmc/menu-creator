@@ -10,6 +10,11 @@ import Spinner from "../../../components/Spinner";
 import "./disableDefaultForm.css";
 import UploadWidget from "../../../components/UploadWidget";
 import { FaCircleCheck } from "react-icons/fa6";
+import { Cloudinary } from "@cloudinary/url-gen/index";
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { AdvancedImage } from "@cloudinary/react";
+import { RoundCorners } from "@cloudinary/url-gen/actions";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
 interface Props {
   application: "add" | "update";
@@ -61,6 +66,14 @@ const ItemForm = ({
     toast.error(`Something unexpected happened. Please try again later.`);
     console.log(error);
   };
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+    },
+  });
+
+  const itemPhoto = cld.image(photoPublictId);
+  itemPhoto.resize(fill().width(100).height(100)).roundCorners(byRadius(30));
 
   return (
     <form
@@ -121,16 +134,12 @@ const ItemForm = ({
         />
         <Flex gap="3" px="2" align="center">
           <Text wrap="nowrap">Item Photo</Text>
+
+          {photoPublictId && <AdvancedImage cldImg={itemPhoto} />}
           <UploadWidget
             onUploadDone={(publicId) => setPhotoPublicId(publicId)}
             folder="items"
           />
-
-          {photoPublictId && (
-            <Text color="green" ml="3">
-              <FaCircleCheck />
-            </Text>
-          )}
         </Flex>
       </div>
       <Flex justify="center" mt="4" gap="5">
