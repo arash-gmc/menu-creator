@@ -13,6 +13,7 @@ export interface Restaurant {
   id: string;
   username: string;
   title: string;
+  theme:string
 }
 
 export interface BackendError {
