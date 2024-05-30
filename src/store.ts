@@ -7,6 +7,7 @@ interface Store {
   itemGroups: Item[][];
   setItemGroups: (itemGroups: Item[][]) => void;
   removeItemGroup: (itesmId: string, itemCategory: string | null) => void;
+  changeName: (itemId: string | undefined, itemNewName: string) => void;
 }
 
 const useMyStore = create<Store>((set) => ({
@@ -22,6 +23,15 @@ const useMyStore = create<Store>((set) => ({
         )
         .filter((g) => g.length > 0);
       return { itemGroups: newItemGroup };
+    }),
+  changeName: (itemId: string | undefined, itemNewName: string) =>
+    set((prev) => {
+      const newItemGroups = prev.itemGroups.map((group) =>
+        group.map((item) =>
+          item.id === itemId ? { ...item, name: itemNewName } : item
+        )
+      );
+      return { itemGroups: newItemGroups };
     }),
 }));
 

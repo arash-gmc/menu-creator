@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const EditItem = () => {
   const { data: items, isLoading } = useItems();
-  const selectedId = useMyStore((s) => s.editingItemId);
+  const { changeName, editingItemId } = useMyStore();
 
   const editOnServer = (
     data: Data,
@@ -18,11 +18,12 @@ const EditItem = () => {
   ) => {
     const updateObj = {
       ...data,
-      id: selectedId,
+      id: editingItemId,
       category: data.category === "-" ? null : data.category,
     };
     axios.put("/api/items/edit-one", updateObj).then();
     toast.success("Your Item has been updated successfully.");
+    changeName(editingItemId, data.name);
   };
 
   return (
@@ -30,12 +31,12 @@ const EditItem = () => {
       <Flex direction="column" mb="5">
         <ItemSelector items={items} />
       </Flex>
-      {selectedId && (
+      {editingItemId && (
         <ItemForm
           application="update"
           isLoading={isLoading}
           onFormSubmit={editOnServer}
-          initialData={items?.find((item) => item.id === selectedId)}
+          initialData={items?.find((item) => item.id === editingItemId)}
         />
       )}
     </div>
