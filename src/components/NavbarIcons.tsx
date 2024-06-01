@@ -8,6 +8,7 @@ import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoQrCode, IoStatsChart } from "react-icons/io5";
 import { MdOutlineAccountCircle, MdRestaurantMenu } from "react-icons/md";
 import { UserContext } from "../Providers";
+import LanguageSelector from "./LanguageSelector";
 
 interface Item {
   name: string;
@@ -56,6 +57,7 @@ const NavbarIcons = () => {
         </Link>
       ))}
       <Flex align="center" justify="center" gap="3" p="2">
+        <LanguageSelector />
         <Avatar
           fallback={user.name[0].toUpperCase()}
           color="indigo"

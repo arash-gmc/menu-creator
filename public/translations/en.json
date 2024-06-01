@@ -1,0 +1,9 @@
+{
+    "test":"Test",
+    "dashboard":{
+        "itemForm":{
+            "name":"Name",
+            "price":"Price"
+        }
+    }
+}

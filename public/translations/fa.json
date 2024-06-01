@@ -1,0 +1,9 @@
+{
+    "test":"تست",
+    "dashboard":{
+        "itemForm":{
+            "name":"نام",
+            "price":"قیمت"
+        }
+    }
+}
