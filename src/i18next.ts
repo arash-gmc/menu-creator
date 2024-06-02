@@ -9,7 +9,6 @@ i18next
   .use(i18nextBrowserLanguagedetector)
   .use(initReactI18next)
   .init({
-    debug: true,
     resources: {
       en: { translation: en },
       fa: { translation: fa },

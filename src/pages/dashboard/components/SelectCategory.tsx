@@ -16,13 +16,12 @@ import { useTranslation } from "react-i18next";
 
 interface Props {
   control: Control<Data, any>;
-  genericOption: string;
   changeCategory: (category: string) => void;
 }
 
-const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
+const SelectCategory = ({ control, changeCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const newCategoryRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     axios
@@ -46,15 +45,19 @@ const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
             name="category"
             control={control}
             render={({ field }) => (
-              <Select.Root onValueChange={field.onChange} value={field.value}>
-                <Select.Trigger
-                  placeholder={t("dashboard.itemForm.category.label")}
-                />
+              <Select.Root
+                onValueChange={field.onChange}
+                value={field.value}
+                dir={i18n.dir()}
+              >
+                <Select.Trigger placeholder={t("dashboard.category.label")} />
                 <Select.Content>
-                  <Select.Item value="-">{genericOption}</Select.Item>
+                  <Select.Item value="-" dir={i18n.dir()}>
+                    {t("dashboard.category.noCategory")}
+                  </Select.Item>
                   <Select.Separator />
                   {categories.map((item) => (
-                    <Select.Item value={item} key={item}>
+                    <Select.Item value={item} key={item} dir={i18n.dir()}>
                       {item}
                     </Select.Item>
                   ))}
@@ -68,13 +71,13 @@ const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
       <Popover.Root>
         <Popover.Trigger>
           <Button variant="soft" type="button" mx="2">
-            {t("dashboard.itemForm.category.new")}
+            {t("dashboard.category.new")}
           </Button>
         </Popover.Trigger>
         <Popover.Content width="200px">
           <Flex direction="column" gap="3" align="start">
             <Text size="2" color="gray">
-              {t("dashboard.itemForm.category.newWindowLabel")}
+              {t("dashboard.category.newWindowLabel")}
             </Text>
             <TextField.Root ref={newCategoryRef} />
             <Popover.Close>

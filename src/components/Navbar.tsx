@@ -10,7 +10,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   return (
     <nav>
-      <div className=" bg-orange-500 text-white">
+      <div className=" bg-orange-500 text-white vazir">
         <Container>
           <Flex justify="between" px="3" pt="3" align="center">
             <Flex>

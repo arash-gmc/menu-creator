@@ -13,11 +13,12 @@ const ItemSelector = ({ items }: Props) => {
   const { itemGroups } = useItemsInGroups(items);
   const { setEditingItemId, editingItemId } = useMyStore();
   if (!itemGroups) return null;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <Select.Root
       onValueChange={(e) => setEditingItemId(e.valueOf())}
       defaultValue={editingItemId}
+      dir={i18n.dir()}
     >
       <Select.Trigger placeholder={t("dashboard.itemForm.chooseItem")} />
       <Select.Content>
@@ -29,7 +30,7 @@ const ItemSelector = ({ items }: Props) => {
             </Select.Label>
             <Select.Separator />
             {group.map((item) => (
-              <Select.Item value={item.id} key={item.id}>
+              <Select.Item value={item.id} key={item.id} dir={i18n.dir()}>
                 {item.name}
               </Select.Item>
             ))}

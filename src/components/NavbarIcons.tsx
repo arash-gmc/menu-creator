@@ -21,9 +21,9 @@ const NavbarIcons = () => {
   const { pathname } = useLocation();
   const section = pathname.split("/")[2];
   const user = useContext(UserContext);
-  if (!user) return null;
   const { t: tr } = useTranslation();
   const t = tr("dashboard.navbar") as any;
+
   const items: Item[] = [
     { name: "mymenu", title: t.myMenu, icon: <MdRestaurantMenu /> },
     { name: "add", title: t.add, icon: <PiListPlusBold /> },
@@ -32,6 +32,7 @@ const NavbarIcons = () => {
     { name: "discount", title: t.discount, icon: <RiDiscountPercentLine /> },
     { name: "statistic", title: t.statistics, icon: <IoStatsChart /> },
   ];
+  if (!user) return null;
   return (
     <Flex
       gap={{ initial: "0", md: "2" }}

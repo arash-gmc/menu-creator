@@ -119,7 +119,6 @@ const ItemForm = ({
           {(application === "add" || showSelector) && (
             <SelectCategory
               control={control}
-              genericOption={t.noCategory}
               changeCategory={(category: string) => {
                 if (category) setValue("category", category);
               }}

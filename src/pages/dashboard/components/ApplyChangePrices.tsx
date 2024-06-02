@@ -74,7 +74,7 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
           </Table.Root>
           <Flex justify="center" gap="3" m="5">
             <Dialog.Close>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{tr("common.cancel")}</Button>
             </Dialog.Close>
             <Dialog.Close>
               <Button onClick={() => sendToServer()}>{t.applyChanges}</Button>
