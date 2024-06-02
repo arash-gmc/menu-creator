@@ -11,6 +11,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ApplyChangePrices from "./components/ApplyChangePrices";
 import "./components/disableDefaultForm.css";
+import { useTranslation } from "react-i18next";
 
 const ChangePrice = () => {
   const [sliderValue, setSliderValue] = useState(0);
@@ -32,13 +33,14 @@ const ChangePrice = () => {
     setSliderValue(0);
     setChangeType("inc");
   };
-
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.price") as any;
   return (
     <div>
-      <Heading mb="5">Change Prices</Heading>
+      <Heading mb="5">{t.header}</Heading>
       <Grid columns="20% 75%" gap="4" align="center">
         <Box>
-          <Text>Percent</Text>
+          <Text>{t.percent}</Text>
         </Box>
         <Box>
           <Flex align="center" gap="2">
@@ -60,7 +62,7 @@ const ChangePrice = () => {
         </Box>
 
         <Box>
-          <Text>Type</Text>
+          <Text>{t.type}</Text>
         </Box>
         <Box>
           <Select.Root
@@ -70,14 +72,14 @@ const ChangePrice = () => {
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Item value="inc">Increase</Select.Item>
-              <Select.Item value="dec">Decrease</Select.Item>
+              <Select.Item value="inc">{t.increase}</Select.Item>
+              <Select.Item value="dec">{t.decrease}</Select.Item>
             </Select.Content>
           </Select.Root>
         </Box>
 
         <Box>
-          <Text>Category</Text>
+          <Text>{tr("dashboard.category.label")}</Text>
         </Box>
         <Box>
           <Select.Root
@@ -87,7 +89,9 @@ const ChangePrice = () => {
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Item value="0">All Categories</Select.Item>
+              <Select.Item value="0">
+                {tr("dashboard.category.allCategories")}
+              </Select.Item>
               <Select.Separator />
               {categories.map((category) => (
                 <Select.Item value={category} key={category}>

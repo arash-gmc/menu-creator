@@ -12,6 +12,7 @@ import { Control, Controller, FieldValues } from "react-hook-form";
 import { Data } from "./ItemForm";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   control: Control<Data, any>;
@@ -21,7 +22,7 @@ interface Props {
 
 const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
-
+  const { t } = useTranslation();
   const newCategoryRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     axios
@@ -46,7 +47,9 @@ const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
             control={control}
             render={({ field }) => (
               <Select.Root onValueChange={field.onChange} value={field.value}>
-                <Select.Trigger placeholder="Category" />
+                <Select.Trigger
+                  placeholder={t("dashboard.itemForm.category.label")}
+                />
                 <Select.Content>
                   <Select.Item value="-">{genericOption}</Select.Item>
                   <Select.Separator />
@@ -65,17 +68,17 @@ const SelectCategory = ({ control, genericOption, changeCategory }: Props) => {
       <Popover.Root>
         <Popover.Trigger>
           <Button variant="soft" type="button" mx="2">
-            New
+            {t("dashboard.itemForm.category.new")}
           </Button>
         </Popover.Trigger>
         <Popover.Content width="200px">
           <Flex direction="column" gap="3" align="start">
             <Text size="2" color="gray">
-              New category name:
+              {t("dashboard.itemForm.category.newWindowLabel")}
             </Text>
             <TextField.Root ref={newCategoryRef} />
             <Popover.Close>
-              <Button onClick={() => addCategory()}>OK</Button>
+              <Button onClick={() => addCategory()}>{t("common.ok")}</Button>
             </Popover.Close>
           </Flex>
         </Popover.Content>

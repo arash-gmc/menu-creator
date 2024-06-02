@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import useItems from "../../../hooks/useItems";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   percent: number;
@@ -13,6 +14,8 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
   let { data: items } = useItems();
   if (category) items = items?.filter((item) => item.category === category);
   const client = useQueryClient();
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.price") as any;
   const sendToServer = () => {
     const sendingObject = {
       percent,
@@ -34,16 +37,16 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
     <div>
       <Dialog.Root>
         <Dialog.Trigger>
-          <Button disabled={percent === 0}>See Changes</Button>
+          <Button disabled={percent === 0}>{t.seeChanges}</Button>
         </Dialog.Trigger>
         <Dialog.Content>
           <Table.Root>
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeaderCell>Item Name</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Old</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>New</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>{t.itemName}</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>{t.category}</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>{t.oldPrice}</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>{t.newPrice}</Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -74,7 +77,7 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
               <Button variant="outline">Cancel</Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button onClick={() => sendToServer()}>Apply Changes</Button>
+              <Button onClick={() => sendToServer()}>{t.applyChanges}</Button>
             </Dialog.Close>
           </Flex>
         </Dialog.Content>

@@ -1,8 +1,12 @@
 import { Select } from "@radix-ui/themes";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
+  useEffect(() => {
+    document.body.dir = i18n.dir();
+  }, [i18n.language]);
   return (
     <Select.Root
       defaultValue={i18n.language}

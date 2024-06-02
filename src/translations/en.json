@@ -1,0 +1,49 @@
+{
+  "test": "Test",
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel"
+  },
+  "dashboard": {
+    "navbar": {
+      "myMenu": "My Menu",
+      "add": "Add",
+      "edit": "Edit",
+      "price": "Price",
+      "discount": "Discount",
+      "statistics": "Statistics"
+    },
+    "category": {
+      "label": "Category",
+      "noCategory": "No Category",
+      "allCategories": "All Categories",
+      "new": "New",
+      "newWindowLabel": "New Category Name"
+    },
+    "itemForm": {
+      "name": "Name",
+      "price": "Price",
+
+      "description": "Description",
+      "itemPhoto": "Item Photo",
+      "upload": "Upload",
+      "addItem": "Add Item",
+      "updateItem": "Update Item",
+      "deleteItem": "Delete Item",
+      "chooseItem": "Please choose an item"
+    },
+    "price": {
+      "header": "Change Prices",
+      "percent": "Percent",
+      "type": "Type",
+      "increase": "Increase",
+      "decrease": "Decrease",
+      "seeChanges": "See Changes",
+      "itemName": "Item Name",
+      "category": "Category",
+      "oldPrice": "Old Price",
+      "newPrice": "New Price",
+      "applyChanges": "Apply Changes"
+    }
+  }
+}

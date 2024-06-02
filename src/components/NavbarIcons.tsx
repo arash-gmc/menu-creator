@@ -9,6 +9,7 @@ import { IoQrCode, IoStatsChart } from "react-icons/io5";
 import { MdOutlineAccountCircle, MdRestaurantMenu } from "react-icons/md";
 import { UserContext } from "../Providers";
 import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface Item {
   name: string;
@@ -16,20 +17,21 @@ interface Item {
   icon: ReactNode;
 }
 
-const items: Item[] = [
-  { name: "mymenu", title: "My Menu", icon: <MdRestaurantMenu /> },
-  { name: "add", title: "Add", icon: <PiListPlusBold /> },
-  { name: "edit", title: "Edit", icon: <FiEdit /> },
-  { name: "price", title: "Price", icon: <FaDollarSign /> },
-  { name: "discount", title: "Discount", icon: <RiDiscountPercentLine /> },
-  { name: "statistic", title: "Statistic", icon: <IoStatsChart /> },
-];
-
 const NavbarIcons = () => {
   const { pathname } = useLocation();
   const section = pathname.split("/")[2];
   const user = useContext(UserContext);
   if (!user) return null;
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.navbar") as any;
+  const items: Item[] = [
+    { name: "mymenu", title: t.myMenu, icon: <MdRestaurantMenu /> },
+    { name: "add", title: t.add, icon: <PiListPlusBold /> },
+    { name: "edit", title: t.edit, icon: <FiEdit /> },
+    { name: "price", title: t.price, icon: <FaDollarSign /> },
+    { name: "discount", title: t.discount, icon: <RiDiscountPercentLine /> },
+    { name: "statistic", title: t.statistics, icon: <IoStatsChart /> },
+  ];
   return (
     <Flex
       gap={{ initial: "0", md: "2" }}

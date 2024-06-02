@@ -1,0 +1,48 @@
+{
+  "test": "تست",
+  "common": {
+    "ok": "تایید",
+    "cancel": "لغو"
+  },
+  "dashboard": {
+    "navbar": {
+      "myMenu": "منوی من",
+      "add": "افزودن",
+      "edit": "ویرایش",
+      "price": "قیمت",
+      "discount": "تخفیف",
+      "statistics": "آمار"
+    },
+    "category": {
+      "label": "دسته بندی",
+      "noCategory": "بدون دسته بندی",
+      "allCategories": "همه ی دسته بندی ها",
+      "new": "جدید",
+      "newWindowLabel": "نام دسته بندی جدید"
+    },
+    "itemForm": {
+      "name": "نام",
+      "price": "قیمت",
+      "description": "توضیحات",
+      "itemPhoto": "تصویر",
+      "upload": "آپلود",
+      "addItem": "اضافه کردن",
+      "updateItem": "به روز رسانی",
+      "deleteItem": "پاک کردن",
+      "chooseItem": "یکی را انتخاب کنید"
+    },
+    "price": {
+      "header": "تغییر قیمت ها",
+      "percent": "درصد تغییر",
+      "type": "نوع",
+      "increase": "افزایش",
+      "decrease": "کاهش",
+      "seeChanges": "دیدن تغییرات",
+      "itemName": "نام",
+      "category": "دسته",
+      "oldPrice": "قیمت قبل",
+      "newPrice": "قیمت جدید",
+      "applyChanges": "اعمال تغییر"
+    }
+  }
+}

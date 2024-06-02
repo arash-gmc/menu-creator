@@ -3,6 +3,7 @@ import { Item } from "../../../interfaces";
 import { Button, Flex, Select } from "@radix-ui/themes";
 import useItemsInGroups from "../../../hooks/useItemsInGroups";
 import useMyStore from "../../../store";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   items: Item[] | undefined;
@@ -12,12 +13,13 @@ const ItemSelector = ({ items }: Props) => {
   const { itemGroups } = useItemsInGroups(items);
   const { setEditingItemId, editingItemId } = useMyStore();
   if (!itemGroups) return null;
+  const { t } = useTranslation();
   return (
     <Select.Root
       onValueChange={(e) => setEditingItemId(e.valueOf())}
       defaultValue={editingItemId}
     >
-      <Select.Trigger placeholder="Choose an Item" />
+      <Select.Trigger placeholder={t("dashboard.itemForm.chooseItem")} />
       <Select.Content>
         {itemGroups.map((group) => (
           <Select.Group key={"g-" + group[0].id}>

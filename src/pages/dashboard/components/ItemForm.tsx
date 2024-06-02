@@ -1,20 +1,19 @@
+import { AdvancedImage } from "@cloudinary/react";
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Button, Flex, Text, TextField } from "@radix-ui/themes";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Spinner from "../../../components/Spinner";
+import UploadWidget from "../../../components/UploadWidget";
 import { Item } from "../../../interfaces";
 import DeleteItemButton from "./DeleteItemButton";
 import SelectCategory from "./SelectCategory";
-import Spinner from "../../../components/Spinner";
 import "./disableDefaultForm.css";
-import UploadWidget from "../../../components/UploadWidget";
-import { FaCircleCheck } from "react-icons/fa6";
-import { Cloudinary } from "@cloudinary/url-gen/index";
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { AdvancedImage } from "@cloudinary/react";
-import { RoundCorners } from "@cloudinary/url-gen/actions";
-import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   application: "add" | "update";
@@ -74,7 +73,8 @@ const ItemForm = ({
 
   const itemPhoto = cld.image(photoPublictId);
   itemPhoto.resize(fill().width(100).height(100)).roundCorners(byRadius(30));
-
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.itemForm") as any;
   return (
     <form
       onSubmit={handleSubmit((data) => {
@@ -89,7 +89,7 @@ const ItemForm = ({
         <Flex direction="column" className="col-span-3 max-md:col-span-4">
           <TextField.Root
             {...register("name", { required: true })}
-            placeholder="Name"
+            placeholder={t.name}
             className="text-center"
           />
 
@@ -103,7 +103,7 @@ const ItemForm = ({
           <TextField.Root
             type="number"
             min={0}
-            placeholder="Price"
+            placeholder={t.price}
             {...register("price", { required: true, valueAsNumber: true })}
           />
           {formState.errors.price && (
@@ -119,7 +119,7 @@ const ItemForm = ({
           {(application === "add" || showSelector) && (
             <SelectCategory
               control={control}
-              genericOption="No Category"
+              genericOption={t.noCategory}
               changeCategory={(category: string) => {
                 if (category) setValue("category", category);
               }}
@@ -130,10 +130,10 @@ const ItemForm = ({
         <TextField.Root
           {...register("description")}
           className="col-span-6"
-          placeholder="Description"
+          placeholder={t.description}
         />
         <Flex gap="3" px="2" align="center">
-          <Text wrap="nowrap">Item Photo</Text>
+          <Text wrap="nowrap">{t.itemPhoto}</Text>
 
           {photoPublictId && <AdvancedImage cldImg={itemPhoto} />}
           <UploadWidget
@@ -149,14 +149,14 @@ const ItemForm = ({
             type="submit"
             disabled={isLoading}
           >
-            Add Item
+            {t.addItem}
             {isLoading && <Spinner />}
           </Button>
         )}
         {application === "update" && (
           <>
             <Button size="3" type="submit" disabled={isLoading}>
-              Update Item
+              {t.updateItem}
               {isLoading && <Spinner />}
             </Button>
             {initialData && (

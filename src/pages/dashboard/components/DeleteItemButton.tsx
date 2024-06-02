@@ -1,11 +1,7 @@
 import { Button } from "@radix-ui/themes";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
-import { useLocation, useNavigate, useNavigation } from "react-router-dom";
-import { Item } from "../../../interfaces";
-import { UserContext } from "../../../Providers";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import useMyStore from "../../../store";
 
 interface Props {
@@ -14,9 +10,8 @@ interface Props {
 }
 
 const DeleteItemButton = ({ itemId, itemCategory }: Props) => {
-  const user = useContext(UserContext);
-  const queryClient = useQueryClient();
   const { setEditingItemId, removeItemGroup } = useMyStore();
+  const { t } = useTranslation();
   const deleteItem = () => {
     axios.delete("/api/items/delete/" + itemId).then((res) => {
       setEditingItemId(undefined);
@@ -26,7 +21,7 @@ const DeleteItemButton = ({ itemId, itemCategory }: Props) => {
   };
   return (
     <Button size="3" type="button" color="red" onClick={() => deleteItem()}>
-      Delete Item
+      {t("dashboard.itemForm.deleteItem")}
     </Button>
   );
 };
