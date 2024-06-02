@@ -9,6 +9,7 @@ import useItems from "../../hooks/useItems";
 import { Item } from "../../interfaces";
 import { render } from "react-dom";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export interface Data {
   percent: string;
@@ -19,29 +20,33 @@ export interface ItemCheck extends Item {
   isChecked: boolean;
 }
 
-const percents: SelectData[] = [
-  { value: "5", label: "5 Percent" },
-  { value: "10", label: "10 Percent" },
-  { value: "15", label: "15 Percent" },
-  { value: "20", label: "20 Percent" },
-  { value: "25", label: "25 Percent" },
-  { value: "30", label: "30 Percent" },
-  { value: "50", label: "50 Percent" },
-  { value: "0", label: "--Remove discount--" },
-];
-const dueDate: SelectData[] = [
-  { value: "1", label: "1 Day" },
-  { value: "2", label: "2 Days" },
-  { value: "3", label: "3 Days" },
-  { value: "7", label: "1 Week" },
-  { value: "14", label: "2 Weeks" },
-  { value: "30", label: "1 Month" },
-  { value: "60", label: "2 Months" },
-  { value: "90", label: "3 Months" },
-  { value: "365", label: "1 Year" },
-];
-
 const Discount = () => {
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.discount") as any;
+
+  const percents: SelectData[] = [
+    { value: "5", label: "5 " + t.percent },
+    { value: "10", label: "10 " + t.percent },
+    { value: "15", label: "15 " + t.percent },
+    { value: "20", label: "20 " + t.percent },
+    { value: "25", label: "25 " + t.percent },
+    { value: "30", label: "30 " + t.percent },
+    { value: "50", label: "50 " + t.percent },
+    { value: "0", label: `--${t.removeDiscount}--` },
+  ];
+
+  const dueDate: SelectData[] = [
+    { value: "1", label: "1 " + t.day },
+    { value: "2", label: "2 " + t.days },
+    { value: "3", label: "3 " + t.days },
+    { value: "7", label: "1 " + t.week },
+    { value: "14", label: "2 " + t.weeks },
+    { value: "30", label: "1 " + t.month },
+    { value: "60", label: "2 " + t.months },
+    { value: "90", label: "3 " + t.months },
+    { value: "365", label: "1 " + t.year },
+  ];
+
   const { control, handleSubmit, watch } = useForm<Data>();
   const { data, refetch } = useItems();
   const [items, setItems] = useState<ItemCheck[]>();
@@ -114,55 +119,52 @@ const Discount = () => {
 
   return (
     <div>
-      <Heading>Set Discount</Heading>
-      <div className="grid grid-cols-4 gap-y-8 gap-x-2">
-        <div className="col-span-3 max-md:col-span-4">
-          <DiscountItems
-            discount={discount}
-            handleCheckChange={handleCheckChange}
-            items={items}
-          />
-        </div>
-        <div className="col-span-1 max-md:mx-10 max-md:col-span-4">
-          <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-            <Flex direction="column" gap="4">
-              <Selector
-                control={control}
-                name="percent"
-                placeholder="Discount Persent"
-                options={percents}
-              />
-              <Selector
-                disabled={watch("percent") === "0"}
-                placeholder="Days until end"
-                control={control}
-                name="dueDays"
-                options={dueDate}
-              />
-              <Button disabled={isApplyDisable()}>Apply Discounts</Button>
-              <Grid columns="2" gap="3">
-                <Button
-                  disabled={!watch("percent")}
-                  type="button"
-                  onClick={() => changeCheckAll("check")}
-                >
-                  Check All
-                </Button>
-                <Button
-                  disabled={!watch("percent")}
-                  type="button"
-                  onClick={() => changeCheckAll("uncheck")}
-                >
-                  Uncheck All
-                </Button>
-              </Grid>
-              <Button type="button" onClick={() => removeAllDiscounts()}>
-                Remove All Discounts
+      <Heading>{t.header}</Heading>
+      <Grid columns={{ initial: "1", lg: "75% 25%" }} flow="dense">
+        <DiscountItems
+          discount={discount}
+          handleCheckChange={handleCheckChange}
+          items={items}
+        />
+
+        <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+          <Flex direction="column" gap="4" mt={{ initial: "6", lg: "0" }}>
+            <Selector
+              control={control}
+              name="percent"
+              placeholder={t.discountPercent}
+              options={percents}
+            />
+            <Selector
+              disabled={watch("percent") === "0"}
+              placeholder={t.due}
+              control={control}
+              name="dueDays"
+              options={dueDate}
+            />
+            <Button disabled={isApplyDisable()}>{t.apply}</Button>
+            <Grid columns="2" gap="3">
+              <Button
+                disabled={!watch("percent")}
+                type="button"
+                onClick={() => changeCheckAll("check")}
+              >
+                {t.checkAll}
               </Button>
-            </Flex>
-          </form>
-        </div>
-      </div>
+              <Button
+                disabled={!watch("percent")}
+                type="button"
+                onClick={() => changeCheckAll("uncheck")}
+              >
+                {t.uncheckAll}
+              </Button>
+            </Grid>
+            <Button type="button" onClick={() => removeAllDiscounts()}>
+              {t.removeAll}
+            </Button>
+          </Flex>
+        </form>
+      </Grid>
     </div>
   );
 };

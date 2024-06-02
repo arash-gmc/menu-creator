@@ -12,6 +12,7 @@ import { Control, Controller, FieldValues } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Data } from "../Discount";
+import { useTranslation } from "react-i18next";
 
 export interface SelectData {
   value: string;
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const Selector = ({ control, options, placeholder, name, disabled }: Props) => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="w-full">
       <Flex direction="column">
@@ -34,7 +36,11 @@ const Selector = ({ control, options, placeholder, name, disabled }: Props) => {
           name={name}
           control={control}
           render={({ field }) => (
-            <Select.Root onValueChange={field.onChange} disabled={disabled}>
+            <Select.Root
+              onValueChange={field.onChange}
+              disabled={disabled}
+              dir={i18n.dir()}
+            >
               <Select.Trigger placeholder={placeholder || "Select One"} />
               <Select.Content>
                 {options.map((option) => (

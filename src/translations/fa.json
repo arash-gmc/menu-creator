@@ -43,6 +43,24 @@
       "oldPrice": "قیمت قبل",
       "newPrice": "قیمت جدید",
       "applyChanges": "اعمال تغییر"
+    },
+    "discount": {
+      "header": "تخفیف گذاری",
+      "discountPercent": "درصد تخفیف",
+      "due": "روزهای تخفیف",
+      "apply": "اعمال تخفیف",
+      "checkAll": "انتخاب همه",
+      "uncheckAll": "انتخاب هیچکدام",
+      "removeAll": "لغو تمام تخفیف ها",
+      "percent": "درصد",
+      "day": "روز",
+      "days": "روز",
+      "week": "هفته",
+      "weeks": "هفته",
+      "month": "ماه",
+      "months": "ماه",
+      "year": "سال",
+      "removeDiscount": "پاک کردن تخفیف"
     }
   }
 }

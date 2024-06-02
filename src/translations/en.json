@@ -44,6 +44,24 @@
       "oldPrice": "Old Price",
       "newPrice": "New Price",
       "applyChanges": "Apply Changes"
+    },
+    "discount": {
+      "header": "Set Discounts",
+      "discountPercent": "Discount Percent",
+      "due": "Discount Due Days",
+      "apply": "Apply Discounts",
+      "checkAll": "Check All",
+      "uncheckAll": "Uncheck All",
+      "removeAll": "Remove All Discounts",
+      "percent": "Percent",
+      "day": "Day",
+      "days": "Days",
+      "week": "Week",
+      "weeks": "Weeks",
+      "month": "month",
+      "months": "Months",
+      "year": "Year",
+      "removeDiscount": "Remove Discounts"
     }
   }
 }

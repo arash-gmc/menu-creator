@@ -33,7 +33,7 @@ const ChangePrice = () => {
     setSliderValue(0);
     setChangeType("inc");
   };
-  const { t: tr } = useTranslation();
+  const { t: tr, i18n } = useTranslation();
   const t = tr("dashboard.price") as any;
   return (
     <div>
@@ -48,6 +48,7 @@ const ChangePrice = () => {
               step={2}
               value={[sliderValue]}
               onValueChange={(e) => setSliderValue(e[0].valueOf())}
+              dir={i18n.dir()}
             />
             <Text
               size="4"
