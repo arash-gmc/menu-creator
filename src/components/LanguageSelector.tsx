@@ -6,6 +6,7 @@ const LanguageSelector = () => {
   const { i18n } = useTranslation();
   useEffect(() => {
     document.body.dir = i18n.dir();
+    if (i18n.language === "fa") import("./addPersianDigits.css");
   }, [i18n.language]);
   return (
     <Select.Root

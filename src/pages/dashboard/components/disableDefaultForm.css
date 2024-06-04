@@ -6,3 +6,7 @@ form {
   box-shadow: none;
   padding: 0;
 }
+
+form * {
+  font-family: vazir;
+}

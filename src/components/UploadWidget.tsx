@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Button } from "@radix-ui/themes";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onUploadDone: (publicId: string) => void;
@@ -11,6 +12,7 @@ interface Props {
 const UploadWidget = ({ onUploadDone, folder, label }: Props) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
+  const { t } = useTranslation();
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
@@ -32,7 +34,7 @@ const UploadWidget = ({ onUploadDone, folder, label }: Props) => {
       onClick={() => widgetRef.current.open()}
       type="button"
     >
-      {label || "Upload"}
+      {label || t("dashboard.itemForm.upload")}
     </Button>
   );
 };

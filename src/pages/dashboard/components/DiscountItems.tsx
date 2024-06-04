@@ -1,5 +1,6 @@
 import { Box, Checkbox, Flex, Grid, Text } from "@radix-ui/themes";
 import { ItemCheck } from "../Discount";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   discount: number;
@@ -10,7 +11,7 @@ interface Props {
 const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
   const newPrice = (oldPrice: number, percent: number) =>
     Math.floor(oldPrice * (1 - percent / 100));
-
+  const { t } = useTranslation();
   return (
     <Box px={{ initial: "1", md: "5" }} mx={{ initial: "0", md: "2" }}>
       <Flex direction="column">
@@ -86,9 +87,9 @@ const DiscountItems = ({ discount, items, handleCheckChange }: Props) => {
                   {discount == 0 && item.isChecked
                     ? ""
                     : item.isChecked
-                    ? `${discount}% off`
+                    ? `${discount}% ${t("dashboard.discount.off")}`
                     : item.offPercent && new Date() < new Date(item.offDueDate)
-                    ? `${item.offPercent}% off`
+                    ? `${item.offPercent}% ${t("dashboard.discount.off")}`
                     : ""}
                 </Text>
               </Box>

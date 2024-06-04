@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @font-face {
-    font-family: "vazir";
-    src: url("../public/fonts/Vazir.woff2") format("woff2");
-  }
-
-  body{
-    background-color: #333;
-    color: azure;
+  font-family: "vazir";
+  src: url("../public/fonts/Vazir.woff2") format("woff2");
+  font-weight: normal;
 }
 
-.vazir{
-    font-family: vazir;
+@font-face {
+  font-family: "vazir";
+  src: url("../public/fonts/Vazir-Bold.woff2") format("woff2");
+  font-weight: bold;
+}
+
+.radix-themes {
+  --default-font-family: vazir;
+}
+
+body {
+  background-color: #333;
+  color: azure;
+}
+
+.vazir {
+  font-family: vazir !important;
 }

@@ -13,7 +13,6 @@ i18next
       en: { translation: en },
       fa: { translation: fa },
     },
-    lng: "en",
     fallbackLng: "en",
     interpolation: { escapeValue: false },
     returnObjects: true,

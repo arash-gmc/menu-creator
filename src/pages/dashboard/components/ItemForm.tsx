@@ -90,7 +90,6 @@ const ItemForm = ({
           <TextField.Root
             {...register("name", { required: true })}
             placeholder={t.name}
-            className="text-center"
           />
 
           {formState.errors.name && (

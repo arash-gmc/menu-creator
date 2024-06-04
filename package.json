@@ -17,6 +17,7 @@
     "@types/qrcode": "^1.5.5",
     "@types/react-helmet": "^6.1.11",
     "axios": "^1.6.8",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "i18next": "^23.11.5",
     "i18next-browser-languagedetector": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
