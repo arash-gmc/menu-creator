@@ -1,4 +1,4 @@
-import { Flex } from "@radix-ui/themes";
+import { Flex, Heading } from "@radix-ui/themes";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import ItemForm, { Data } from "./components/ItemForm";
@@ -6,10 +6,12 @@ import ItemSelector from "./components/ItemSelector";
 import useItems from "../../hooks/useItems";
 import useMyStore from "../../store";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const EditItem = () => {
   const { data: items, isLoading } = useItems();
   const { changeName, editingItemId } = useMyStore();
+  const { t } = useTranslation();
 
   const editOnServer = (
     data: Data,
@@ -22,12 +24,13 @@ const EditItem = () => {
       category: data.category === "-" ? null : data.category,
     };
     axios.put("/api/items/edit-one", updateObj).then();
-    toast.success("Your Item has been updated successfully.");
+    toast.success(t("messages.updateItem", { name: data.name }));
     changeName(editingItemId, data.name);
   };
 
   return (
     <div>
+      <Heading my="5">{t("dashboard.itemForm.editTitle")}</Heading>
       <Flex direction="column" mb="5">
         <ItemSelector items={items} />
       </Flex>

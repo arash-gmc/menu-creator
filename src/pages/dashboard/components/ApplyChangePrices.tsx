@@ -24,13 +24,13 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
     axios
       .put("/api/items/change-prices", sendingObject)
       .then((res) => {
-        toast.success("Prices are changed successfully.");
+        toast.success(tr("messages.changePrice"));
         reset();
         client.invalidateQueries();
       })
       .catch((e) => {
         console.log(e);
-        toast.error("There was a problem with changing prices.");
+        toast.error(tr("messages.generalError"));
       });
   };
   return (

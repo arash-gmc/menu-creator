@@ -70,11 +70,11 @@ const Discount = () => {
       .then(() => {
         changeCheckAll("uncheck");
         refetch();
-        toast.success("Your discounts has been submitted.");
+        toast.success(tr("messages.discountSubmit"));
       })
       .catch((error) => {
         console.log(error);
-        toast.error("There was an error with updating discounts.");
+        toast.error(tr("messages.generalError"));
       });
   };
 
@@ -99,11 +99,11 @@ const Discount = () => {
           prev?.map((item) => ({ ...item, isChecked: false }))
         );
         refetch();
-        toast.success("All discounts has been removed.");
+        toast.success(tr("messages.removeAllDiscounts"));
       })
       .catch((error) => {
         console.log(error);
-        toast.error("There was a problem.");
+        toast.error(tr("messages.generalError"));
       });
   };
 

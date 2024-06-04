@@ -13,11 +13,17 @@ const DeleteItemButton = ({ itemId, itemCategory }: Props) => {
   const { setEditingItemId, removeItemGroup } = useMyStore();
   const { t } = useTranslation();
   const deleteItem = () => {
-    axios.delete("/api/items/delete/" + itemId).then((res) => {
-      setEditingItemId(undefined);
-      removeItemGroup(itemId, itemCategory);
-      toast.success("Your Item has been deleted successfully.");
-    });
+    axios
+      .delete("/api/items/delete/" + itemId)
+      .then((res) => {
+        setEditingItemId(undefined);
+        removeItemGroup(itemId, itemCategory);
+        toast.success(t("messages.itemDeletion"));
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(t("messages.generalError"));
+      });
   };
   return (
     <Button size="3" type="button" color="red" onClick={() => deleteItem()}>

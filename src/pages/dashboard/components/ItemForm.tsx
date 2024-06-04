@@ -2,7 +2,7 @@ import { AdvancedImage } from "@cloudinary/react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 import { Cloudinary } from "@cloudinary/url-gen/index";
-import { Button, Flex, Text, TextField } from "@radix-ui/themes";
+import { Button, Flex, Grid, Text, TextField } from "@radix-ui/themes";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -59,7 +59,7 @@ const ItemForm = ({
     resetField("price");
     resetField("description");
     setPhotoPublicId(undefined);
-    toast.success(`${data.name} has been added to the menu successfully.`);
+    toast.success(tr("messages.addItem", { name: data.name }));
   };
   const onFail = (error: AxiosError) => {
     toast.error(`Something unexpected happened. Please try again later.`);
@@ -72,7 +72,7 @@ const ItemForm = ({
   });
 
   const itemPhoto = cld.image(photoPublictId);
-  itemPhoto.resize(fill().width(100).height(100)).roundCorners(byRadius(30));
+  itemPhoto.resize(fill().width(200).height(200)).roundCorners(byRadius(30));
   const { t: tr } = useTranslation();
   const t = tr("dashboard.itemForm") as any;
   return (
@@ -130,42 +130,68 @@ const ItemForm = ({
           className="col-span-6"
           placeholder={t.description}
         />
-        <Flex gap="3" px="2" align="center">
-          <Text wrap="nowrap">{t.itemPhoto}</Text>
-
-          {photoPublictId && <AdvancedImage cldImg={itemPhoto} />}
-          <UploadWidget
-            onUploadDone={(publicId) => setPhotoPublicId(publicId)}
-            folder="items"
-          />
-        </Flex>
       </div>
-      <Flex justify="center" mt="4" gap="5">
-        {application === "add" && (
-          <Button
-            size={{ initial: "2", md: "3" }}
-            type="submit"
-            disabled={isLoading}
-          >
-            {t.addItem}
-            {isLoading && <Spinner />}
-          </Button>
-        )}
-        {application === "update" && (
-          <>
-            <Button size="3" type="submit" disabled={isLoading}>
-              {t.updateItem}
+      <Grid
+        p="2"
+        my="5"
+        gap="5"
+        align="center"
+        columns={{ initial: "1", sm: "2" }}
+      >
+        <Flex
+          justify="center"
+          mt="4"
+          gap="5"
+          direction="column"
+          className={"max-w-sm mx-auto max-md:order-2"}
+        >
+          {application === "add" && (
+            <Button
+              size={{ initial: "2", md: "3" }}
+              type="submit"
+              disabled={isLoading}
+            >
+              {t.addItem}
               {isLoading && <Spinner />}
             </Button>
-            {initialData && (
-              <DeleteItemButton
-                itemId={initialData.id}
-                itemCategory={initialData.category}
-              />
+          )}
+          {application === "update" && (
+            <>
+              <Button size="3" type="submit" disabled={isLoading}>
+                {t.updateItem}
+                {isLoading && <Spinner />}
+              </Button>
+              {initialData && (
+                <DeleteItemButton
+                  itemId={initialData.id}
+                  itemCategory={initialData.category}
+                />
+              )}
+            </>
+          )}
+        </Flex>
+
+        <Flex gap="3" align="start" justify={{ initial: "center", sm: "end" }}>
+          <Flex direction="column" gap="2">
+            <UploadWidget
+              onUploadDone={(publicId) => setPhotoPublicId(publicId)}
+              folder="items"
+              label={tr("dashboard.itemForm.uploadPhoto")}
+            />
+            {photoPublictId && (
+              <Button
+                variant="surface"
+                color="red"
+                type="button"
+                onClick={() => setPhotoPublicId(undefined)}
+              >
+                {t.removePhoto}
+              </Button>
             )}
-          </>
-        )}
-      </Flex>
+          </Flex>
+          {photoPublictId && <AdvancedImage cldImg={itemPhoto} />}
+        </Flex>
+      </Grid>
     </form>
   );
 };

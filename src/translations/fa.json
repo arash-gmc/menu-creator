@@ -4,6 +4,15 @@
     "ok": "تایید",
     "cancel": "لغو"
   },
+  "messages": {
+    "discountSubmit": "تخفیف های شما با موفقیت اعمال شد.",
+    "generalError": "فرآیند با خظا مواجه شد.",
+    "removeAllDiscounts": "همه ی تخفیف ها موفقیت حذف شد.",
+    "updateItem": "تغییرات شما با موفقیت بر روی {{name}} اعمال شد.",
+    "changePrice": "قیمت ها با موفقیت تغییر کردند.",
+    "itemDeletion": "آیتم مورد نظر با موفقیت حذف شد.",
+    "addItem": "{{name}} با موفقیت به منو اضافه شد."
+  },
   "dashboard": {
     "navbar": {
       "myMenu": "منوی من",
@@ -21,14 +30,17 @@
       "newWindowLabel": "نام دسته بندی جدید"
     },
     "itemForm": {
+      "addTitle": "اضافه کردن آیتم جدید",
+      "editTitle": "ویرایش آیتم",
       "name": "نام",
       "price": "قیمت",
       "description": "توضیحات",
       "itemPhoto": "تصویر",
-      "upload": "آپلود",
+      "uploadPhoto": "بارگذاری تصویر",
+      "removePhoto": "حذف تصویر",
       "addItem": "اضافه کردن",
-      "updateItem": "به روز رسانی",
-      "deleteItem": "پاک کردن",
+      "updateItem": "به روز رسانی آیتم",
+      "deleteItem": "پاک کردن آیتم",
       "chooseItem": "یکی را انتخاب کنید"
     },
     "price": {

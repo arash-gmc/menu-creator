@@ -4,6 +4,15 @@
     "ok": "OK",
     "cancel": "Cancel"
   },
+  "messages": {
+    "discountSubmit": "Your discounts has been submitted.",
+    "generalError": "The proccess encountered an error.",
+    "removeAllDiscounts": "All discounts has been removed.",
+    "updateItem": "{{name}} has been updated successfully.",
+    "changePrice": "Prices are changed successfully.",
+    "itemDeletion": "Your Item has been deleted successfully.",
+    "addItem": "{{name}} has been added to the menu successfully."
+  },
   "dashboard": {
     "navbar": {
       "myMenu": "My Menu",
@@ -21,12 +30,14 @@
       "newWindowLabel": "New Category Name"
     },
     "itemForm": {
+      "addTitle": "Add new item",
+      "editTitle": "Edit item",
       "name": "Name",
       "price": "Price",
-
       "description": "Description",
       "itemPhoto": "Item Photo",
-      "upload": "Upload",
+      "uploadPhoto": "Upload Photo",
+      "removePhoto": "Remove Photo",
       "addItem": "Add Item",
       "updateItem": "Update Item",
       "deleteItem": "Delete Item",
