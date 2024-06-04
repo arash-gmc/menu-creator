@@ -28,7 +28,8 @@ interface Props {
 }
 
 const Selector = ({ control, options, placeholder, name, disabled }: Props) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
+
   return (
     <div className="w-full">
       <Flex direction="column">

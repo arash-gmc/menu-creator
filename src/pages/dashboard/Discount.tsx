@@ -7,7 +7,6 @@ import Selector, { SelectData } from "./components/Selector";
 import "./components/disableDefaultForm.css";
 import useItems from "../../hooks/useItems";
 import { Item } from "../../interfaces";
-import { render } from "react-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +20,7 @@ export interface ItemCheck extends Item {
 }
 
 const Discount = () => {
-  const { t: tr } = useTranslation();
+  const { t: tr, i18n } = useTranslation();
   const t = tr("dashboard.discount") as any;
 
   const percents: SelectData[] = [
@@ -120,15 +119,19 @@ const Discount = () => {
   return (
     <div>
       <Heading>{t.header}</Heading>
-      <Grid columns={{ initial: "1", lg: "75% 25%" }} flow="dense">
-        <DiscountItems
-          discount={discount}
-          handleCheckChange={handleCheckChange}
-          items={items}
-        />
-
-        <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-          <Flex direction="column" gap="4" mt={{ initial: "6", lg: "0" }}>
+      <Grid columns={{ initial: "1", md: "70% 30%" }}>
+        <div className="max-lg:order-2">
+          <DiscountItems
+            discount={discount}
+            handleCheckChange={handleCheckChange}
+            items={items}
+          />
+        </div>
+        <form
+          onSubmit={handleSubmit((data) => onSubmit(data))}
+          className="max-lg:order-1"
+        >
+          <Flex direction="column" gap="4" className="max-w-sm py-4 mx-auto">
             <Selector
               control={control}
               name="percent"
