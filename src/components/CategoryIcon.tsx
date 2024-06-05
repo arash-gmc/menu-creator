@@ -36,6 +36,9 @@ export const categoryIconMap: Record<string, string> = {
   vegan: "vegan",
   "traditional dish": "traditionalDish",
   //persian
+  "پیش غذا": "appetizer",
+  صبحانه: "breakfast",
+  کیک: "cake&sweets",
   "نوشیدنی گرم": "hotDrink",
   "نوشیدنی سرد": "coldDrink",
   چای: "tea",

@@ -7,7 +7,7 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { Data } from "./ItemForm";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import CategoryIcon, {
   categoryIconMap,
 } from "../../../components/CategoryIcon";
+import { UserContext } from "../../../Providers";
 
 interface Props {
   control: Control<Data, any>;
@@ -24,15 +25,20 @@ interface Props {
 
 const SelectCategory = ({ control, changeCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
+  const user = useContext(UserContext);
   const { t, i18n } = useTranslation();
   const [newCategory, setNewCategory] = useState<string>("");
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const allCategorySuggests = Object.keys(categoryIconMap);
+  console.log(user);
   useEffect(() => {
-    axios
-      .get<string[]>("/api/items/get-categories")
-      .then((res) => setCategories(res.data));
-  }, []);
+    if (user)
+      axios
+        .get<string[]>("/api/items/get-categories", {
+          headers: { lng: i18n.language, type: user.type },
+        })
+        .then((res) => setCategories(res.data));
+  }, [user, i18n.language]);
 
   const addCategory = (category: string) => {
     if (!category) return;

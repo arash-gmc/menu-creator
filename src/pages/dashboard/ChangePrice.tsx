@@ -22,9 +22,7 @@ const ChangePrice = () => {
 
   useEffect(() => {
     axios
-      .get<string[]>("/api/items/get-categories", {
-        headers: { noDefault: "true" },
-      })
+      .get<string[]>("/api/items/get-categories")
       .then((res) => setCategories(res.data));
   }, []);
 

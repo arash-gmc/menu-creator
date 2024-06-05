@@ -6,6 +6,8 @@ import axiosConfig from "./services/axios";
 export interface User {
   id: string;
   name: string;
+  type: string;
+  title: string;
 }
 
 export const UserContext = react.createContext<User | undefined>({} as User);
