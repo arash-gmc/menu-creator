@@ -13,7 +13,9 @@ import { Data } from "./ItemForm";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import CategoryIcon from "../../../components/CategoryIcon";
+import CategoryIcon, {
+  categoryIconMap,
+} from "../../../components/CategoryIcon";
 
 interface Props {
   control: Control<Data, any>;
@@ -23,19 +25,32 @@ interface Props {
 const SelectCategory = ({ control, changeCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
   const { t, i18n } = useTranslation();
-  const newCategoryRef = useRef<HTMLInputElement>(null);
+  const [newCategory, setNewCategory] = useState<string>("");
+  const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
+  const allCategorySuggests = Object.keys(categoryIconMap);
   useEffect(() => {
     axios
       .get<string[]>("/api/items/get-categories")
       .then((res) => setCategories(res.data));
   }, []);
 
-  const addCategory = () => {
-    const newCategory = newCategoryRef.current?.value;
-    if (!newCategory) return;
-    if (categories.includes(newCategory)) return changeCategory(newCategory);
-    setCategories((prev) => [newCategory, ...prev]);
-    setTimeout(() => changeCategory(newCategory), 100);
+  const addCategory = (category: string) => {
+    if (!category) return;
+    if (categories.includes(category)) return changeCategory(category);
+    setCategories((prev) => [category, ...prev]);
+    setTimeout(() => changeCategory(category), 100);
+  };
+  const handleNewCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.currentTarget.value;
+    setNewCategory(input);
+    if (input.length > 1) {
+      const filtered = allCategorySuggests.filter((category) =>
+        category.includes(input.toLowerCase())
+      );
+      setFilteredCategories(filtered);
+    } else {
+      setFilteredCategories([]);
+    }
   };
   if (!categories) return null;
   return (
@@ -78,15 +93,56 @@ const SelectCategory = ({ control, changeCategory }: Props) => {
             {t("dashboard.category.new")}
           </Button>
         </Popover.Trigger>
-        <Popover.Content width="200px">
+        <Popover.Content width="240px" style={{ overflow: "visible" }}>
           <Flex direction="column" gap="3" align="start">
             <Text size="2" color="gray">
               {t("dashboard.category.newWindowLabel")}
             </Text>
-            <TextField.Root ref={newCategoryRef} />
-            <Popover.Close>
-              <Button onClick={() => addCategory()}>{t("common.ok")}</Button>
-            </Popover.Close>
+            <Flex gap="2">
+              <div className="relative">
+                <TextField.Root
+                  value={newCategory}
+                  onChange={handleNewCategory}
+                />
+                {filteredCategories.length > 0 && (
+                  <Box className="absolute bg-slate-200 w-full">
+                    {filteredCategories.map((category) => (
+                      <Popover.Close key={category}>
+                        <button
+                          onClick={() => {
+                            addCategory(category);
+                            setNewCategory("");
+                            setFilteredCategories([]);
+                          }}
+                        >
+                          <Flex
+                            align="center"
+                            py="2"
+                            mx="1"
+                            gap="2"
+                            className="border-b-2 border-white"
+                          >
+                            <CategoryIcon size="xs" category={category} />
+                            <Text size="2">{category}</Text>
+                          </Flex>
+                        </button>
+                      </Popover.Close>
+                    ))}
+                  </Box>
+                )}
+              </div>
+              <Popover.Close>
+                <Button
+                  onClick={() => {
+                    addCategory(newCategory);
+                    setNewCategory("");
+                    setFilteredCategories([]);
+                  }}
+                >
+                  {t("common.ok")}
+                </Button>
+              </Popover.Close>
+            </Flex>
           </Flex>
         </Popover.Content>
       </Popover.Root>

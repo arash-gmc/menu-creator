@@ -8,7 +8,7 @@ interface Props {
 }
 
 //map from category to file name
-export const categoryMap: Record<string, string> = {
+export const categoryIconMap: Record<string, string> = {
   //english
   appetizer: "appetizer",
   breakfast: "breakfast",
@@ -71,7 +71,7 @@ const sizeMap: SizeMapType = {
 };
 
 const CategoryIcon = ({ size, category }: Props) => {
-  const filename = categoryMap[category.toLowerCase()];
+  const filename = categoryIconMap[category.toLowerCase()];
   if (!filename)
     return (
       <canvas width={sizeMap[size].pixcel} height={sizeMap[size].pixcel} />
