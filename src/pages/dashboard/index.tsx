@@ -2,6 +2,7 @@ import { Box, Container, Flex } from "@radix-ui/themes";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import CategoryIcon from "../../components/CategoryIcon";
 
 const Dashboard = () => {
   return (

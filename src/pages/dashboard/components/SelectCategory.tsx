@@ -13,6 +13,7 @@ import { Data } from "./ItemForm";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import CategoryIcon from "../../../components/CategoryIcon";
 
 interface Props {
   control: Control<Data, any>;
@@ -58,7 +59,10 @@ const SelectCategory = ({ control, changeCategory }: Props) => {
                   <Select.Separator />
                   {categories.map((item) => (
                     <Select.Item value={item} key={item} dir={i18n.dir()}>
-                      {item}
+                      <Flex align="center" gap="3">
+                        <CategoryIcon size="xs" category={item} />
+                        {item}
+                      </Flex>
                     </Select.Item>
                   ))}
                 </Select.Content>

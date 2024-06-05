@@ -1,12 +1,11 @@
 import { Box, Heading, Text } from "@radix-ui/themes";
+import CategoryIcon from "../components/CategoryIcon";
 
 const Test = () => {
   return (
     <>
       <Box p="8">
-        <Heading>هورخش فیگو نژاد</Heading>
-        <Text my="5">هورخش فیگونژاد</Text>
-        <Heading>Figo is a cow person</Heading>
+        <CategoryIcon size="sm" category="کباب" />
       </Box>
     </>
   );
