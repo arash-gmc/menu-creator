@@ -10,7 +10,7 @@ import EditItem from "./pages/dashboard/EditItem";
 import ChangePrice from "./pages/dashboard/ChangePrice";
 import Discount from "./pages/dashboard/Discount";
 import Statistics from "./pages/dashboard/Statistics";
-import MyMenu from "./pages/dashboard/MyMenu";
+import Home from "./pages/dashboard/Home";
 import Test from "./pages/Test";
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
-      { path: "/dashboard/mymenu", element: <MyMenu /> },
+      { path: "/dashboard/", element: <Home /> },
       { path: "/dashboard/add", element: <AddItem /> },
       { path: "/dashboard/edit", element: <EditItem /> },
       { path: "/dashboard/price", element: <ChangePrice /> },

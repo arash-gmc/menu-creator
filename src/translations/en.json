@@ -1,5 +1,4 @@
 {
-  "test": "Test",
   "common": {
     "ok": "OK",
     "cancel": "Cancel"
@@ -13,14 +12,22 @@
     "itemDeletion": "Your Item has been deleted successfully.",
     "addItem": "{{name}} has been added to the menu successfully."
   },
+  "restaurantTypes": {
+    "fast-food": "Fast Food"
+  },
   "dashboard": {
     "navbar": {
-      "myMenu": "My Menu",
-      "add": "Add",
-      "edit": "Edit",
-      "price": "Price",
-      "discount": "Discount",
-      "statistics": "Statistics"
+      "home": "Home",
+      "manage": "Manage Menu",
+      "add": "Add Item",
+      "edit": "Edit Item",
+      "price": "Change Prices",
+      "discount": "Set Discount",
+      "theme": "Change Theme",
+      "footnote": "Footnotes",
+      "statistics": "Viewers Statistics",
+      "setting": "Setting",
+      "signout": "Sign Out"
     },
     "category": {
       "label": "Category",

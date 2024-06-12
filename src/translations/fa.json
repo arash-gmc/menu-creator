@@ -1,5 +1,4 @@
 {
-  "test": "تست",
   "common": {
     "ok": "تایید",
     "cancel": "لغو"
@@ -13,14 +12,22 @@
     "itemDeletion": "آیتم مورد نظر با موفقیت حذف شد.",
     "addItem": "{{name}} با موفقیت به منو اضافه شد."
   },
+  "restaurantTypes": {
+    "fast-food": "فست فود"
+  },
   "dashboard": {
     "navbar": {
-      "myMenu": "منوی من",
-      "add": "افزودن",
-      "edit": "ویرایش",
-      "price": "قیمت",
-      "discount": "تخفیف",
-      "statistics": "آمار"
+      "home": "صفحه اصلی",
+      "manage": "مدیریت منو",
+      "add": "افزودن آیتم",
+      "edit": "ویرایش آیتم",
+      "price": "تغییر قیمت ها",
+      "discount": "گذاشتن تخفیف",
+      "theme": "تغییر تم",
+      "footnote": "پاورقی",
+      "statistics": "آمار",
+      "setting": "تنظیمات",
+      "signout": "خروج"
     },
     "category": {
       "label": "دسته بندی",

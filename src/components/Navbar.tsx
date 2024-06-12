@@ -1,43 +1,29 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../Providers";
-import { Avatar, Container, Flex, Text, Box } from "@radix-ui/themes";
+import { Avatar, Container, Flex, Text, Box, Heading } from "@radix-ui/themes";
 import Logo from "./Logo";
 import NavbarIcons from "./NavbarIcons";
 import { PiListPlusBold } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
+import NavbarMenu from "./NavbarMenu";
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  const user = useContext(UserContext);
+  if (!user) return null;
   return (
     <nav>
       <div className=" bg-orange-500 text-white vazir">
         <Container>
-          <Flex justify="between" px="3" pt="3" align="center">
-            <Flex>
-              <Logo />
+          <Flex justify="between" px="3" py="3" align="center">
+            <Logo />
+            <LanguageSelector />
+            <Flex gap="4" align="center">
+              <Heading size="6">{user.title}</Heading>
+              <NavbarMenu />
             </Flex>
-            <Box display={{ initial: "none", md: "block" }} mx="5">
-              <NavbarIcons />
-            </Box>
-            <Box p="2" mx="3" display={{ initial: "block", md: "none" }}>
-              <button onClick={() => setShowMenu((prev) => !prev)}>
-                <Text size="6">
-                  <GiHamburgerMenu />
-                </Text>
-              </button>
-            </Box>
           </Flex>
-
-          {showMenu && (
-            <Flex
-              direction="column"
-              display={{ md: "none" }}
-              onClick={() => setShowMenu(false)}
-              className={(showMenu ? "" : "max-h-0 ") + "transition-all"}
-            >
-              <NavbarIcons />
-            </Flex>
-          )}
         </Container>
       </div>
     </nav>

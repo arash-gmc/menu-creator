@@ -14,6 +14,7 @@ import DeleteItemButton from "./DeleteItemButton";
 import SelectCategory from "./SelectCategory";
 import "./disableDefaultForm.css";
 import { useTranslation } from "react-i18next";
+import CldImage from "./CldImage";
 
 interface Props {
   application: "add" | "update";
@@ -43,7 +44,7 @@ const ItemForm = ({
   const { register, handleSubmit, control, resetField, formState, setValue } =
     useForm<Data>();
   const [showSelector, setShowSelector] = useState(false);
-  const [photoPublictId, setPhotoPublicId] = useState<string>();
+  const [photoPublicId, setPhotoPublicId] = useState<string>();
   useEffect(() => {
     if (initialData) {
       setValue("name", initialData.name);
@@ -65,21 +66,14 @@ const ItemForm = ({
     toast.error(`Something unexpected happened. Please try again later.`);
     console.log(error);
   };
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
-    },
-  });
 
-  const itemPhoto = cld.image(photoPublictId);
-  itemPhoto.resize(fill().width(200).height(200)).roundCorners(byRadius(30));
   const { t: tr } = useTranslation();
   const t = tr("dashboard.itemForm") as any;
   return (
     <form
       onSubmit={handleSubmit((data) => {
         onFormSubmit(
-          { ...data, photoPublicId: photoPublictId },
+          { ...data, photoPublicId: photoPublicId },
           onSuccess,
           onFail
         );
@@ -178,7 +172,7 @@ const ItemForm = ({
               folder="items"
               label={tr("dashboard.itemForm.uploadPhoto")}
             />
-            {photoPublictId && (
+            {photoPublicId && (
               <Button
                 variant="surface"
                 color="red"
@@ -189,7 +183,7 @@ const ItemForm = ({
               </Button>
             )}
           </Flex>
-          {photoPublictId && <AdvancedImage cldImg={itemPhoto} />}
+          {photoPublicId && <CldImage publicId={photoPublicId} size={200} />}
         </Flex>
       </Grid>
     </form>
