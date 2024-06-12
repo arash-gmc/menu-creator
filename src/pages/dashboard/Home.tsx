@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Providers";
 import EmbededMenu from "./components/EmbededMenu";
 import { Box, Button, Flex, Grid, Heading, Text } from "@radix-ui/themes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "../../components/QRCode";
 import CldImage from "./components/CldImage";
 import axios from "axios";
@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 const Home = () => {
   const user = useContext(UserContext);
   const [restaurant, setRestaurant] = useState<Restaurant>();
+  const navigate = useNavigate();
   useEffect(() => {
     if (!user) return;
     axios
@@ -39,10 +40,14 @@ const Home = () => {
           <Text weight="bold" align="center">
             {restaurant.username}
           </Text>
-          <Text>Logo</Text>
-          <div className="mx-auto border-4 rounded-full">
-            <CldImage publicId="foodmon/logos/sample" size={100} />
-          </div>
+          {restaurant.logoPublicId && (
+            <>
+              <Text>Logo</Text>
+              <div className="mx-auto border-4 rounded-full">
+                <CldImage publicId={restaurant.logoPublicId} size={100} />
+              </div>
+            </>
+          )}
           {restaurant.instagramId && (
             <>
               <Text>Instagram</Text>
@@ -66,19 +71,21 @@ const Home = () => {
           )}
         </Grid>
         <Flex justify="center" my="5">
-          <Button>Edit User Informations</Button>
+          <Button onClick={() => navigate("/dashboard/edit-user")}>
+            Edit User Informations
+          </Button>
         </Flex>
       </div>
-      <Grid
+      <Flex
         gap="3"
         align="center"
         className="px-4 md:px-10"
-        columns={{ initial: "1", sm: "40% 60%" }}
+        direction={{ initial: "column", sm: "row" }}
       >
         <Heading size="5" className="text-nowrap">
           Menu URL
         </Heading>
-        <Flex className="rounded-xl px-2" align="center" justify="center">
+        <Flex className="rounded-xl px-2" align="center">
           <Box className="bg-blue-300 p-2 m-1 rounded-md border-2 border-dashed border-slate-500">
             {url}
           </Box>
@@ -90,7 +97,7 @@ const Home = () => {
             Copy
           </Button>
         </Flex>
-      </Grid>
+      </Flex>
     </div>
   );
 };

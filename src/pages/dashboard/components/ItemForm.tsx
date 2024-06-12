@@ -1,7 +1,3 @@
-import { AdvancedImage } from "@cloudinary/react";
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Button, Flex, Grid, Text, TextField } from "@radix-ui/themes";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";

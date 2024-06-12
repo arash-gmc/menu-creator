@@ -5,7 +5,7 @@ import { Cloudinary } from "@cloudinary/url-gen/index";
 import React from "react";
 
 interface Props {
-  publicId: string;
+  publicId?: string;
   size: number;
 }
 
@@ -15,7 +15,7 @@ const CldImage = ({ publicId, size }: Props) => {
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
     },
   });
-
+  if (!publicId) return null;
   const itemPhoto = cld.image(publicId);
   itemPhoto
     .resize(fill().width(size).height(size))

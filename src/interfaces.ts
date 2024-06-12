@@ -18,8 +18,12 @@ export interface Restaurant {
   instagramId: string;
   type: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string;
 }
+
+export const restaurantTypes = ["restaurant", "cafe", "fast-food"] as const;
+
+export type RestaurantTypes = (typeof restaurantTypes)[number];
 
 export interface BackendError {
   message: string;

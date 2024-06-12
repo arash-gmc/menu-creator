@@ -12,6 +12,7 @@ import Discount from "./pages/dashboard/Discount";
 import Statistics from "./pages/dashboard/Statistics";
 import Home from "./pages/dashboard/Home";
 import Test from "./pages/Test";
+import EditUser from "./pages/dashboard/EditUser";
 
 const router = createBrowserRouter([
   { path: "/m/:restaurantName", element: <Menu /> },
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/price", element: <ChangePrice /> },
       { path: "/dashboard/discount", element: <Discount /> },
       { path: "/dashboard/statistic", element: <Statistics /> },
+      { path: "/dashboard/edit-user", element: <EditUser /> },
     ],
   },
   { path: "/login", element: <Login /> },

@@ -6,9 +6,10 @@ interface Props {
   onUploadDone: (publicId: string) => void;
   folder: string;
   label?: string;
+  size?: "1" | "2" | "3";
 }
 
-const UploadWidget = ({ onUploadDone, folder, label }: Props) => {
+const UploadWidget = ({ onUploadDone, folder, label, size }: Props) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -29,11 +30,11 @@ const UploadWidget = ({ onUploadDone, folder, label }: Props) => {
   return (
     <Button
       variant="surface"
-      size="2"
+      size={size}
       onClick={() => widgetRef.current.open()}
       type="button"
     >
-      {label || "upload"}
+      {label || "Upload"}
     </Button>
   );
 };
