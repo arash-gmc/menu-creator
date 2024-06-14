@@ -9,8 +9,7 @@ import {
 } from "@radix-ui/themes";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ApplyChangePrices from "./components/ApplyChangePrices";
-import "./components/disableDefaultForm.css";
+import ApplyChangePrices from "./ApplyChangePrices";
 import { useTranslation } from "react-i18next";
 
 const ChangePrice = () => {

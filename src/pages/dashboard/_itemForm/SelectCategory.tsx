@@ -10,7 +10,6 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { Data } from "./ItemForm";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import CategoryIcon, {
@@ -30,7 +29,6 @@ const SelectCategory = ({ control, changeCategory }: Props) => {
   const [newCategory, setNewCategory] = useState<string>("");
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const allCategorySuggests = Object.keys(categoryIconMap);
-  console.log(user);
   useEffect(() => {
     if (user)
       axios

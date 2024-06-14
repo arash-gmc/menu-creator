@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ItemForm, { Data } from "./components/ItemForm";
 import axios, { AxiosError } from "axios";
 import { Heading } from "@radix-ui/themes";
 import { useTranslation } from "react-i18next";
+import ItemForm, { Data } from "../_itemForm/ItemForm";
 
 const AddItem = () => {
   const [isSending, setSending] = useState(false);

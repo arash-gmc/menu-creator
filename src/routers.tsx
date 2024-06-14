@@ -4,15 +4,14 @@ import MainPage from "./pages/Main";
 import Menu from "./pages/Menu";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/dashboard";
-import Profile from "./pages/dashboard/Profile";
-import AddItem from "./pages/dashboard/AddItem";
-import EditItem from "./pages/dashboard/EditItem";
-import ChangePrice from "./pages/dashboard/ChangePrice";
-import Discount from "./pages/dashboard/Discount";
-import Statistics from "./pages/dashboard/Statistics";
-import Home from "./pages/dashboard/Home";
+import Discount from "./pages/dashboard/discount";
+import Statistics from "./pages/dashboard/statistics";
+import Home from "./pages/dashboard/home";
 import Test from "./pages/Test";
-import EditUser from "./pages/dashboard/EditUser";
+import AddItem from "./pages/dashboard/addItem";
+import ChangePrice from "./pages/dashboard/changePrices";
+import EditItem from "./pages/dashboard/editItems";
+import EditUser from "./pages/dashboard/home/EditUser";
 
 const router = createBrowserRouter([
   { path: "/m/:restaurantName", element: <Menu /> },

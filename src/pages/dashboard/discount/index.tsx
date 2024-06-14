@@ -2,13 +2,12 @@ import { Button, Flex, Grid, Heading } from "@radix-ui/themes";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import DiscountItems from "./components/DiscountItems";
-import Selector, { SelectData } from "./components/Selector";
-import "./components/disableDefaultForm.css";
-import useItems from "../../hooks/useItems";
-import { Item } from "../../interfaces";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { Item } from "../../../interfaces";
+import useItems from "../../../hooks/useItems";
+import Selector, { SelectData } from "./DiscountSelector";
+import DiscountItems from "./DiscountItems";
 
 export interface Data {
   percent: string;

@@ -1,6 +1,6 @@
 import { Avatar, Button, ContextMenu, DropdownMenu } from "@radix-ui/themes";
 import React, { useContext } from "react";
-import { UserContext } from "../Providers";
+import { UserContext } from "../../../Providers";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const NavbarMenu = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <button>
+        <button className="outline-none">
           <Avatar
             fallback={user.name[0].toUpperCase()}
             color="indigo"
@@ -42,10 +42,10 @@ const NavbarMenu = () => {
             <DropdownMenu.Item onClick={() => navigate("/dashboard/discount")}>
               {t.discount}
             </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/theme")}>
+            <DropdownMenu.Item onClick={() => navigate("#")}>
               {t.theme}
             </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/footnote")}>
+            <DropdownMenu.Item onClick={() => navigate("#")}>
               {t.footnote}
             </DropdownMenu.Item>
           </DropdownMenu.SubContent>

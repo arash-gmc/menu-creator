@@ -1,12 +1,8 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../Providers";
-import { Avatar, Container, Flex, Text, Box, Heading } from "@radix-ui/themes";
-import Logo from "./Logo";
-import NavbarIcons from "./NavbarIcons";
-import { PiListPlusBold } from "react-icons/pi";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { useTranslation } from "react-i18next";
-import LanguageSelector from "./LanguageSelector";
+import { Container, Flex, Heading } from "@radix-ui/themes";
+import { useContext } from "react";
+import { UserContext } from "../../../Providers";
+import LanguageSelector from "../../../components/LanguageSelector";
+import Logo from "../../../components/Logo";
 import NavbarMenu from "./NavbarMenu";
 
 const Navbar = () => {

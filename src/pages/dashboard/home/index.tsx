@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../Providers";
-import EmbededMenu from "./components/EmbededMenu";
+import { UserContext } from "../../../Providers";
+import EmbededMenu from "./EmbededMenu";
 import { Box, Button, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import { Link, useNavigate } from "react-router-dom";
-import QRCode from "../../components/QRCode";
-import CldImage from "./components/CldImage";
+import QRCode from "../../../components/QRCode";
+import CldImage from "../../../components/CldImage";
 import axios from "axios";
-import { Restaurant } from "../../interfaces";
+import { Restaurant } from "../../../interfaces";
 import toast from "react-hot-toast";
 
 const Home = () => {
@@ -79,6 +79,7 @@ const Home = () => {
       <Flex
         gap="3"
         align="center"
+        justify="center"
         className="px-4 md:px-10"
         direction={{ initial: "column", sm: "row" }}
       >
@@ -86,7 +87,7 @@ const Home = () => {
           Menu URL
         </Heading>
         <Flex className="rounded-xl px-2" align="center">
-          <Box className="bg-blue-300 p-2 m-1 rounded-md border-2 border-dashed border-slate-500">
+          <Box className="bg-blue-300 p-2 m-1 rounded-md border-2 border-dashed border-slate-500 select-text">
             {url}
           </Box>
           <Button

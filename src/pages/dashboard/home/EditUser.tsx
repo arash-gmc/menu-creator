@@ -10,13 +10,13 @@ import {
 } from "@radix-ui/themes";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Restaurant, restaurantTypes } from "../../interfaces";
-import { UserContext } from "../../Providers";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import CldImage from "./components/CldImage";
-import UploadWidget from "../../components/UploadWidget";
+import { UserContext } from "../../../Providers";
+import UploadWidget from "../../../components/UploadWidget";
+import { Restaurant, restaurantTypes } from "../../../interfaces";
+import CldImage from "../../../components/CldImage";
 
 interface FormData {
   username: string;

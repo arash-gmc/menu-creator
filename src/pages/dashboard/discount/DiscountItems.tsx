@@ -1,5 +1,5 @@
 import { Box, Checkbox, Flex, Grid, Text } from "@radix-ui/themes";
-import { ItemCheck } from "../Discount";
+import { ItemCheck } from ".";
 import { useTranslation } from "react-i18next";
 
 interface Props {

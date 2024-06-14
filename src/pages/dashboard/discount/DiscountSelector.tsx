@@ -1,18 +1,7 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Popover,
-  Select,
-  Text,
-  TextField,
-} from "@radix-ui/themes";
-import React, { useEffect, useRef, useState } from "react";
+import { Flex, Popover, Select } from "@radix-ui/themes";
 import { Control, Controller, FieldValues } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Data } from "../Discount";
 import { useTranslation } from "react-i18next";
+import { Data } from ".";
 
 export interface SelectData {
   value: string;

@@ -6,11 +6,10 @@ import toast from "react-hot-toast";
 import Spinner from "../../../components/Spinner";
 import UploadWidget from "../../../components/UploadWidget";
 import { Item } from "../../../interfaces";
-import DeleteItemButton from "./DeleteItemButton";
-import SelectCategory from "./SelectCategory";
-import "./disableDefaultForm.css";
 import { useTranslation } from "react-i18next";
-import CldImage from "./CldImage";
+import SelectCategory from "./SelectCategory";
+import DeleteItemButton from "./DeleteItemButton";
+import CldImage from "../../../components/CldImage";
 
 interface Props {
   application: "add" | "update";

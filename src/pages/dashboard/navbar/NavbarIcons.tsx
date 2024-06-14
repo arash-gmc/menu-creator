@@ -7,8 +7,8 @@ import { FaDollarSign } from "react-icons/fa";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoQrCode, IoStatsChart } from "react-icons/io5";
 import { MdOutlineAccountCircle, MdRestaurantMenu } from "react-icons/md";
-import { UserContext } from "../Providers";
-import LanguageSelector from "./LanguageSelector";
+import { UserContext } from "../../../Providers";
+import LanguageSelector from "../../../components/LanguageSelector";
 import { useTranslation } from "react-i18next";
 
 interface Item {
