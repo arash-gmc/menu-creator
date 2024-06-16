@@ -21,6 +21,8 @@ import useMenuItems from "../../../hooks/useMenuItems";
 import ApiClient from "../../../services/apiClient";
 import showError from "../../../services/showError";
 import useRestaurantInfo from "../../../hooks/useRestaurantInfo";
+import { useTranslation } from "react-i18next";
+import i18next from "../../../i18next";
 
 interface FormData {
   username: string;
@@ -29,11 +31,14 @@ interface FormData {
   phoneNumber: string;
 }
 
+const t = i18next.t("dashboard.home") as any;
+const tr = i18next.t;
+
 const fields: { value: keyof FormData; label: string }[] = [
-  { value: "username", label: "Username" },
-  { value: "title", label: "Title" },
-  { value: "instagramId", label: "Instagram ID" },
-  { value: "phoneNumber", label: "Phone Number" },
+  { value: "username", label: t.username },
+  { value: "title", label: t.title },
+  { value: "instagramId", label: t.instagram },
+  { value: "phoneNumber", label: t.phone },
 ];
 
 const EditUser = () => {
@@ -43,7 +48,6 @@ const EditUser = () => {
   const [application, setApplication] = useState<string>();
   const [publicId, setPublicId] = useState<string>();
   const user = useContext(UserContext);
-
   const { restaurant } = useRestaurantInfo(user?.name);
 
   useEffect(() => {
@@ -72,7 +76,7 @@ const EditUser = () => {
 
   return (
     <div>
-      <Heading my="5">Edit Restaurant Info</Heading>
+      <Heading my="5">{t.editTitle}</Heading>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto">
         <Grid columns="40% 60%" gap="3" align="center">
           {fields.map((field) => (
@@ -84,23 +88,23 @@ const EditUser = () => {
               />
             </React.Fragment>
           ))}
-          <Text>Application</Text>
+          <Text>{t.application}</Text>
           {restaurant && (
             <Select.Root
               defaultValue={restaurant.type}
               onValueChange={(e) => setApplication(e.valueOf())}
             >
-              <Select.Trigger placeholder="Application" />
+              <Select.Trigger placeholder={t.application} dir={i18next.dir()} />
               <Select.Content>
                 {restaurantTypes.map((type) => (
                   <Select.Item value={type} key={type}>
-                    {type}
+                    {tr("applications." + type)}
                   </Select.Item>
                 ))}
               </Select.Content>
             </Select.Root>
           )}
-          <Text>Logo</Text>
+          <Text>{t.logo}</Text>
 
           {publicId && (
             <Flex align="center" gap="3">
@@ -118,7 +122,7 @@ const EditUser = () => {
                   size="1"
                   onClick={() => setPublicId(undefined)}
                 >
-                  Delete
+                  {tr("common.delete")}
                 </Button>
               </Flex>
             </Flex>
@@ -139,9 +143,9 @@ const EditUser = () => {
             onClick={() => navigate("/dashboard")}
             size="3"
           >
-            Cancel
+            {tr("common.cancel")}
           </Button>
-          <Button size="3">Apply</Button>
+          <Button size="3">{tr("common.ok")}</Button>
         </Flex>
       </form>
     </div>

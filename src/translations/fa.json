@@ -1,7 +1,10 @@
 {
   "common": {
     "ok": "تایید",
-    "cancel": "لغو"
+    "cancel": "لغو",
+    "delete": "حذف",
+    "upload": "بارگذاری",
+    "copy": "کپی"
   },
   "messages": {
     "successMessage": "عملیات با موفقیت انجام شد.",
@@ -13,15 +16,17 @@
     "itemDeletion": "آیتم مورد نظر با موفقیت حذف شد.",
     "addItem": "{{name}} با موفقیت به منو اضافه شد."
   },
-  "restaurantTypes": {
-    "fast-food": "فست فود"
+  "applications": {
+    "fast-food": "فست فود",
+    "restaurant": "رستوران",
+    "cafe": "کافه"
   },
   "dashboard": {
     "navbar": {
       "home": "صفحه اصلی",
       "manage": "مدیریت منو",
       "add": "افزودن آیتم",
-      "edit": "ویرایش آیتم",
+      "editBtn": "ویرایش آیتم",
       "price": "تغییر قیمت ها",
       "discount": "گذاشتن تخفیف",
       "theme": "تغییر تم",
@@ -36,6 +41,18 @@
       "allCategories": "همه ی دسته بندی ها",
       "new": "جدید",
       "newWindowLabel": "نام دسته بندی جدید"
+    },
+    "home": {
+      "username": "نام کاربری",
+      "title": "عنوان",
+      "instagram": "آدرس اینستاگرام",
+      "phone": "شماره تلفن",
+      "application": "کاربری",
+      "logo": "لوگو",
+      "editBtn": "تغییر اطلاعات کاربر",
+      "menuURL": "آدرس منو",
+      "basicInfo": "اطلاعات پایه",
+      "editTitle": "ویرایش اطلاعات کاربر"
     },
     "itemForm": {
       "addTitle": "اضافه کردن آیتم جدید",

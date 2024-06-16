@@ -1,7 +1,10 @@
 {
   "common": {
     "ok": "OK",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "upload": "Upload",
+    "copy": "Copy"
   },
   "messages": {
     "successMessage": "The process has successfuly done.",
@@ -13,8 +16,10 @@
     "itemDeletion": "Your Item has been deleted successfully.",
     "addItem": "{{name}} has been added to the menu successfully."
   },
-  "restaurantTypes": {
-    "fast-food": "Fast Food"
+  "applications": {
+    "fast-food": "Fast Food",
+    "restaurant": "Restaurant",
+    "cafe": "Cafe"
   },
   "dashboard": {
     "navbar": {
@@ -36,6 +41,18 @@
       "allCategories": "All Categories",
       "new": "New",
       "newWindowLabel": "New Category Name"
+    },
+    "home": {
+      "username": "Username",
+      "title": "Title",
+      "instagram": "Instagram ID",
+      "phone": "Phone Number",
+      "application": "Application",
+      "logo": "Logo",
+      "editBtn": "Edit User Info",
+      "menuURL": "Menu URL",
+      "basicInfo": "Basic Information",
+      "editTitle": "Edit User Info"
     },
     "itemForm": {
       "addTitle": "Add new item",
