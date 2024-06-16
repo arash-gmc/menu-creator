@@ -1,8 +1,6 @@
 import axios from "axios";
 import { Item, Restaurant } from "../interfaces";
-import toast from "react-hot-toast";
 import showError from "./showError";
-import showMessage from "./showMessage";
 import { ItemFormData } from "../interfaces";
 
 const AxiosInstance = axios.create({
@@ -21,18 +19,32 @@ class ApiClient {
     AxiosInstance.post("/items/add-one", {
       ...data,
       category: data.category === "-" ? null : data.category,
-    }).catch((error) => {
-      showError();
     });
 
   editItem = (updateObj: any) =>
-    axios.put("/api/items/edit-one", updateObj).catch((e) => showError());
+    AxiosInstance.put("/items/edit-one", updateObj);
+  deleteItem = (itemId: string) =>
+    AxiosInstance.delete("/items/delete/" + itemId);
+  changePrice = (obj: any) => AxiosInstance.put("/items/change-prices", obj);
+  setDiscount = (
+    percent: number,
+    dueDays: number,
+    itemIds: string[] | undefined
+  ) =>
+    AxiosInstance.put("/items/set-discount", {
+      percent,
+      dueDays,
+      itemIds,
+    });
 
+  removeAllDiscounts = () => AxiosInstance.put("/items/remove-discounts");
   //restaurant
-  getRestaurant = (restaurantUsername: string) =>
+  getRestaurant = (restaurantUsername: string | undefined) =>
     AxiosInstance.get<Restaurant>(
       "/restaurants/get/" + restaurantUsername
     ).then((res) => res.data);
+
+  editUser = (obj: any) => axios.put("/api/restaurants/edit", obj);
 
   addView = (restaurantId: string, interance: string | null) =>
     AxiosInstance.post("/restaurants/add-view/", {

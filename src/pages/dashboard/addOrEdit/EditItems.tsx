@@ -1,14 +1,13 @@
 import { Flex, Heading } from "@radix-ui/themes";
-import axios, { AxiosError } from "axios";
 import useItems from "../../../hooks/useItems";
 import useMyStore from "../../../store";
-import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ItemForm from "./ItemForm";
 import { ItemFormData } from "../../../interfaces";
 import ItemSelector from "./ItemSelector";
 import ApiClient from "../../../services/apiClient";
 import showMessage from "../../../services/showMessage";
+import showError from "../../../services/showError";
 
 const EditItem = () => {
   const { data: items, isLoading } = useItems();
@@ -22,10 +21,13 @@ const EditItem = () => {
       id: editingItemId,
       category: data.category === "-" ? null : data.category,
     };
-    apiClient.editItem(updateObj).then((res) => {
-      showMessage("updateItem", { name: data.name });
-      changeName(editingItemId, data.name);
-    });
+    apiClient
+      .editItem(updateObj)
+      .then((res) => {
+        showMessage("updateItem", { name: data.name });
+        changeName(editingItemId, data.name);
+      })
+      .catch((e) => showError());
   };
 
   return (

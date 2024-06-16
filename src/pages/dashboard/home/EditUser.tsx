@@ -17,6 +17,10 @@ import { UserContext } from "../../../Providers";
 import UploadWidget from "../../../components/UploadWidget";
 import { Restaurant, restaurantTypes } from "../../../interfaces";
 import CldImage from "../../../components/CldImage";
+import useMenuItems from "../../../hooks/useMenuItems";
+import ApiClient from "../../../services/apiClient";
+import showError from "../../../services/showError";
+import useRestaurantInfo from "../../../hooks/useRestaurantInfo";
 
 interface FormData {
   username: string;
@@ -34,21 +38,14 @@ const fields: { value: keyof FormData; label: string }[] = [
 
 const EditUser = () => {
   const { register, handleSubmit, setValue } = useForm<FormData>();
+  const apiClient = new ApiClient();
   const navigate = useNavigate();
-  const [restaurant, setRestaurant] = useState<Restaurant>();
   const [application, setApplication] = useState<string>();
   const [publicId, setPublicId] = useState<string>();
   const user = useContext(UserContext);
-  useEffect(() => {
-    if (!user) return;
-    axios
-      .get<Restaurant>("/api/restaurants/get/" + user.name)
-      .then((res) => setRestaurant(res.data))
-      .catch((e) => {
-        toast("There was a problem with fetchin data");
-        console.log(e);
-      });
-  }, [user]);
+
+  const { restaurant } = useRestaurantInfo(user?.name);
+
   useEffect(() => {
     if (restaurant) {
       setValue("username", restaurant.username);
@@ -62,14 +59,14 @@ const EditUser = () => {
 
   const onSubmit = (data: FormData) => {
     const sendingObj = { ...data, logoPublicId: publicId, type: application };
-    axios
-      .put("/api/restaurants/edit", sendingObj)
+    apiClient
+      .editUser(sendingObj)
       .then((res) => {
         toast.success("Your Changes has applied successfully");
         navigate("/dashboard");
       })
       .catch((e) => {
-        toast.error("There was a problem with editing restaurant.");
+        showError();
       });
   };
 

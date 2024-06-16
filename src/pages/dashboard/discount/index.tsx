@@ -1,13 +1,15 @@
 import { Button, Flex, Grid, Heading } from "@radix-ui/themes";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { Item } from "../../../interfaces";
 import useItems from "../../../hooks/useItems";
 import Selector, { SelectData } from "./DiscountSelector";
 import DiscountItems from "./DiscountItems";
+import ApiClient from "../../../services/apiClient";
+import { dueDate, percents } from "./options";
+import showError from "../../../services/showError";
+import showMessage from "../../../services/showMessage";
 
 export interface Data {
   percent: string;
@@ -21,30 +23,7 @@ export interface ItemCheck extends Item {
 const Discount = () => {
   const { t: tr, i18n } = useTranslation();
   const t = tr("dashboard.discount") as any;
-
-  const percents: SelectData[] = [
-    { value: "5", label: "5 " + t.percent },
-    { value: "10", label: "10 " + t.percent },
-    { value: "15", label: "15 " + t.percent },
-    { value: "20", label: "20 " + t.percent },
-    { value: "25", label: "25 " + t.percent },
-    { value: "30", label: "30 " + t.percent },
-    { value: "50", label: "50 " + t.percent },
-    { value: "0", label: `--${t.removeDiscount}--` },
-  ];
-
-  const dueDate: SelectData[] = [
-    { value: "1", label: "1 " + t.day },
-    { value: "2", label: "2 " + t.days },
-    { value: "3", label: "3 " + t.days },
-    { value: "7", label: "1 " + t.week },
-    { value: "14", label: "2 " + t.weeks },
-    { value: "30", label: "1 " + t.month },
-    { value: "60", label: "2 " + t.months },
-    { value: "90", label: "3 " + t.months },
-    { value: "365", label: "1 " + t.year },
-  ];
-
+  const apiClient = new ApiClient();
   const { control, handleSubmit, watch } = useForm<Data>();
   const { data, refetch } = useItems();
   const [items, setItems] = useState<ItemCheck[]>();
@@ -60,20 +39,15 @@ const Discount = () => {
       .map((item) => item.id);
     const percent = Number(data.percent);
     const dueDays = Number(data.dueDays);
-    axios
-      .put("/api/items/set-discount", {
-        percent,
-        dueDays,
-        itemIds,
-      })
+    apiClient
+      .setDiscount(percent, dueDays, itemIds)
       .then(() => {
         changeCheckAll("uncheck");
         refetch();
-        toast.success(tr("messages.discountSubmit"));
+        showMessage("discountSubmit");
       })
       .catch((error) => {
-        console.log(error);
-        toast.error(tr("messages.generalError"));
+        showError();
       });
   };
 
@@ -91,18 +65,17 @@ const Discount = () => {
   };
 
   const removeAllDiscounts = () => {
-    axios
-      .put("/api/items/remove-discounts")
+    apiClient
+      .removeAllDiscounts()
       .then(() => {
         setItems((prev) =>
           prev?.map((item) => ({ ...item, isChecked: false }))
         );
         refetch();
-        toast.success(tr("messages.removeAllDiscounts"));
+        showMessage("removeAllDiscounts");
       })
       .catch((error) => {
-        console.log(error);
-        toast.error(tr("messages.generalError"));
+        showError();
       });
   };
 

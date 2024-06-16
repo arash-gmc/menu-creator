@@ -6,6 +6,7 @@ import ItemForm from "./ItemForm";
 import { ItemFormData } from "../../../interfaces";
 import showMessage from "../../../services/showMessage";
 import ApiClient from "../../../services/apiClient";
+import showError from "../../../services/showError";
 
 const AddItem = () => {
   const [isSending, setSending] = useState(false);
@@ -17,6 +18,9 @@ const AddItem = () => {
       .addItem(data)
       .then((res) => {
         showMessage("addItem", { name: data.name });
+      })
+      .catch((error) => {
+        showError();
       })
       .finally(() => setSending(false));
   };

@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 import useItems from "../../../hooks/useItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import ApiClient from "../../../services/apiClient";
+import showMessage from "../../../services/showMessage";
+import showError from "../../../services/showError";
 
 interface Props {
   percent: number;
@@ -14,6 +17,7 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
   let { data: items } = useItems();
   if (category) items = items?.filter((item) => item.category === category);
   const client = useQueryClient();
+  const apiClient = new ApiClient();
   const { t: tr } = useTranslation();
   const t = tr("dashboard.price") as any;
   const sendToServer = () => {
@@ -21,16 +25,15 @@ const ApplyChangePrices = ({ percent, category, reset }: Props) => {
       percent,
       category: category === "0" ? undefined : category,
     };
-    axios
-      .put("/api/items/change-prices", sendingObject)
-      .then((res) => {
-        toast.success(tr("messages.changePrice"));
+    apiClient
+      .changePrice(sendingObject)
+      .then(() => {
+        showMessage("changePrice");
         reset();
         client.invalidateQueries();
       })
       .catch((e) => {
-        console.log(e);
-        toast.error(tr("messages.generalError"));
+        showError();
       });
   };
   return (

@@ -3,6 +3,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import useMyStore from "../../../store";
+import ApiClient from "../../../services/apiClient";
+import showMessage from "../../../services/showMessage";
+import showError from "../../../services/showError";
 
 interface Props {
   itemId: string;
@@ -12,17 +15,17 @@ interface Props {
 const DeleteItemButton = ({ itemId, itemCategory }: Props) => {
   const { setEditingItemId, removeItemGroup } = useMyStore();
   const { t } = useTranslation();
+  const apiClient = new ApiClient();
   const deleteItem = () => {
-    axios
-      .delete("/api/items/delete/" + itemId)
+    apiClient
+      .deleteItem(itemId)
       .then((res) => {
         setEditingItemId(undefined);
         removeItemGroup(itemId, itemCategory);
-        toast.success(t("messages.itemDeletion"));
+        showMessage("itemDeletion");
       })
       .catch((e) => {
-        console.log(e);
-        toast.error(t("messages.generalError"));
+        showError();
       });
   };
   return (
