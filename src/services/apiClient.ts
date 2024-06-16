@@ -2,6 +2,8 @@ import axios from "axios";
 import { Item, Restaurant } from "../interfaces";
 import toast from "react-hot-toast";
 import showError from "./showError";
+import showMessage from "./showMessage";
+import { Data } from "../pages/dashboard/addOrEdit/ItemForm";
 
 const AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL + "/api",
@@ -14,6 +16,15 @@ class ApiClient {
     AxiosInstance.get<Item[]>("/items/get/" + restaurantUsername).then(
       (res) => res.data
     );
+
+  addItem = (data: Data) =>
+    AxiosInstance.post("/items/add-one", {
+      ...data,
+      category: data.category === "-" ? null : data.category,
+    })
+    .catch((error) => {
+      showError();
+    });
 
   getViews = () =>
     AxiosInstance.get("/restaurants/get-views")

@@ -12,11 +12,7 @@ import ItemPhoto from "./ItemPhoto";
 
 interface Props {
   application: "add" | "update";
-  onFormSubmit: (
-    data: Data,
-    onSuccess: (data: Data) => void,
-    onFail: (error: AxiosError) => void
-  ) => void;
+  onFormSubmit: (data: Data) => void;
   isLoading?: boolean;
   initialData?: Item;
 }
@@ -50,10 +46,7 @@ const ItemForm = ({
     }
   }, [initialData]);
   const onSuccess = (data: Data) => {
-    resetField("name");
-    resetField("price");
-    resetField("description");
-    setPhotoPublicId(undefined);
+    resetFields();
     toast.success(tr("messages.addItem", { name: data.name }));
   };
   const onFail = (error: AxiosError) => {
@@ -63,14 +56,18 @@ const ItemForm = ({
 
   const { t: tr } = useTranslation();
   const t = tr("dashboard.itemForm") as any;
+
+  const resetFields = () => {
+    resetField("name");
+    resetField("price");
+    resetField("description");
+    setPhotoPublicId(undefined);
+  };
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        onFormSubmit(
-          { ...data, photoPublicId: photoPublicId },
-          onSuccess,
-          onFail
-        );
+        onFormSubmit({ ...data, photoPublicId: photoPublicId });
+        resetFields();
       })}
     >
       <div className="grid grid-cols-6 gap-3">

@@ -12,11 +12,7 @@ const EditItem = () => {
   const { changeName, editingItemId } = useMyStore();
   const { t } = useTranslation();
 
-  const editOnServer = (
-    data: Data,
-    onSuccess: (data: Data) => void,
-    onFail: (error: AxiosError) => void
-  ) => {
+  const editOnServer = (data: Data) => {
     const updateObj = {
       ...data,
       id: editingItemId,

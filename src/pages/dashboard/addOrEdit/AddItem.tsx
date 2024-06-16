@@ -3,27 +3,19 @@ import axios, { AxiosError } from "axios";
 import { Heading } from "@radix-ui/themes";
 import { useTranslation } from "react-i18next";
 import ItemForm, { Data } from "./ItemForm";
+import showMessage from "../../../services/showMessage";
+import ApiClient from "../../../services/apiClient";
 
 const AddItem = () => {
   const [isSending, setSending] = useState(false);
   const { t } = useTranslation();
-  const addToserver = (
-    data: Data,
-    onSuccess: (data: Data) => void,
-    onFail: (error: AxiosError) => void
-  ) => {
+  const apiClient = new ApiClient();
+  const addToserver = (data: Data) => {
     setSending(true);
-    axios
-      .post("/api/items/add-one", {
-        ...data,
-        category: data.category === "-" ? null : data.category,
-      })
+    apiClient
+      .addItem(data)
       .then((res) => {
-        onSuccess(res.data);
-      })
-      .catch((error: AxiosError) => {
-        onFail(error);
-        console.log(error);
+        showMessage("addItem", { name: data.name });
       })
       .finally(() => setSending(false));
   };
