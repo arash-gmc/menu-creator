@@ -1,11 +1,11 @@
 import { Flex, Heading } from "@radix-ui/themes";
 import axios, { AxiosError } from "axios";
-import ItemSelector from "./ItemSelector";
 import useItems from "../../../hooks/useItems";
 import useMyStore from "../../../store";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import ItemForm, { Data } from "../_itemForm/ItemForm";
+import ItemForm, { Data } from "./ItemForm";
+import ItemSelector from "./ItemSelector";
 
 const EditItem = () => {
   const { data: items, isLoading } = useItems();

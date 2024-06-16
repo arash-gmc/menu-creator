@@ -8,10 +8,10 @@ import Discount from "./pages/dashboard/discount";
 import Statistics from "./pages/dashboard/statistics";
 import Home from "./pages/dashboard/home";
 import Test from "./pages/Test";
-import AddItem from "./pages/dashboard/addItem";
+import AddItem from "./pages/dashboard/addOrEdit/AddItem";
 import ChangePrice from "./pages/dashboard/changePrices";
-import EditItem from "./pages/dashboard/editItems";
 import EditUser from "./pages/dashboard/home/EditUser";
+import EditItem from "./pages/dashboard/addOrEdit/EditItems";
 
 const router = createBrowserRouter([
   { path: "/m/:restaurantName", element: <Menu /> },
