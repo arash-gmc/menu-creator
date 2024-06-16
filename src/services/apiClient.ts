@@ -3,7 +3,7 @@ import { Item, Restaurant } from "../interfaces";
 import toast from "react-hot-toast";
 import showError from "./showError";
 import showMessage from "./showMessage";
-import { Data } from "../pages/dashboard/addOrEdit/ItemForm";
+import { ItemFormData } from "../interfaces";
 
 const AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL + "/api",
@@ -17,12 +17,11 @@ class ApiClient {
       (res) => res.data
     );
 
-  addItem = (data: Data) =>
+  addItem = (data: ItemFormData) =>
     AxiosInstance.post("/items/add-one", {
       ...data,
       category: data.category === "-" ? null : data.category,
-    })
-    .catch((error) => {
+    }).catch((error) => {
       showError();
     });
 

@@ -4,7 +4,8 @@ import useItems from "../../../hooks/useItems";
 import useMyStore from "../../../store";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import ItemForm, { Data } from "./ItemForm";
+import ItemForm from "./ItemForm";
+import { ItemFormData } from "../../../interfaces";
 import ItemSelector from "./ItemSelector";
 
 const EditItem = () => {
@@ -12,7 +13,7 @@ const EditItem = () => {
   const { changeName, editingItemId } = useMyStore();
   const { t } = useTranslation();
 
-  const editOnServer = (data: Data) => {
+  const editOnServer = (data: ItemFormData) => {
     const updateObj = {
       ...data,
       id: editingItemId,

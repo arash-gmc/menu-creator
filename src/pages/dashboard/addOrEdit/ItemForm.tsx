@@ -1,28 +1,18 @@
 import { Button, Flex, Grid, Text, TextField } from "@radix-ui/themes";
-import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import Spinner from "../../../components/Spinner";
-import { Item } from "../../../interfaces";
 import { useTranslation } from "react-i18next";
-import SelectCategory from "./SelectCategory";
+import Spinner from "../../../components/Spinner";
+import { Item, ItemFormData } from "../../../interfaces";
 import DeleteItemButton from "./DeleteItemButton";
 import ItemPhoto from "./ItemPhoto";
+import SelectCategory from "./SelectCategory";
 
 interface Props {
   application: "add" | "update";
-  onFormSubmit: (data: Data) => void;
+  onFormSubmit: (data: ItemFormData) => void;
   isLoading?: boolean;
   initialData?: Item;
-}
-
-export interface Data {
-  name: string;
-  price: number;
-  category: string;
-  description: string;
-  photoPublicId?: string;
 }
 
 const ItemForm = ({
@@ -31,11 +21,24 @@ const ItemForm = ({
   initialData,
   application,
 }: Props) => {
-  const { register, handleSubmit, control, resetField, formState, setValue } =
-    useForm<Data>();
   const [showSelector, setShowSelector] = useState(false);
   const [photoPublicId, setPhotoPublicId] = useState<string>();
+  const { register, handleSubmit, control, resetField, formState, setValue } =
+    useForm<ItemFormData>();
+  const { t: tr } = useTranslation();
+  const t = tr("dashboard.itemForm") as any;
   useEffect(() => {
+    setInitialData();
+  }, [initialData]);
+
+  const resetFields = () => {
+    resetField("name");
+    resetField("price");
+    resetField("description");
+    setPhotoPublicId(undefined);
+  };
+
+  const setInitialData = () => {
     if (initialData) {
       setValue("name", initialData.name);
       setValue("price", initialData.price);
@@ -44,24 +47,6 @@ const ItemForm = ({
       setShowSelector(true);
       setPhotoPublicId(initialData?.photoPublicId);
     }
-  }, [initialData]);
-  const onSuccess = (data: Data) => {
-    resetFields();
-    toast.success(tr("messages.addItem", { name: data.name }));
-  };
-  const onFail = (error: AxiosError) => {
-    toast.error(tr("messages.generalError"));
-    console.log(error);
-  };
-
-  const { t: tr } = useTranslation();
-  const t = tr("dashboard.itemForm") as any;
-
-  const resetFields = () => {
-    resetField("name");
-    resetField("price");
-    resetField("description");
-    setPhotoPublicId(undefined);
   };
   return (
     <form
@@ -123,6 +108,10 @@ const ItemForm = ({
         align="center"
         columns={{ initial: "1", sm: "2" }}
       >
+        <ItemPhoto
+          photoPublicId={photoPublicId}
+          setPhotoPublicId={(publicId) => setPhotoPublicId(publicId)}
+        />
         <Flex
           justify="center"
           mt="4"
@@ -130,36 +119,21 @@ const ItemForm = ({
           direction="column"
           className={"max-w-sm mx-auto max-md:order-2"}
         >
-          {application === "add" && (
-            <Button
-              size={{ initial: "2", md: "3" }}
-              type="submit"
-              disabled={isLoading}
-            >
-              {t.addItem}
-              {isLoading && <Spinner />}
-            </Button>
-          )}
-          {application === "update" && (
-            <>
-              <Button size="3" type="submit" disabled={isLoading}>
-                {t.updateItem}
-                {isLoading && <Spinner />}
-              </Button>
-              {initialData && (
-                <DeleteItemButton
-                  itemId={initialData.id}
-                  itemCategory={initialData.category}
-                />
-              )}
-            </>
+          <Button size="3" type="submit" disabled={isLoading}>
+            {application === "add"
+              ? t.addItem
+              : application === "update"
+              ? t.updateItem
+              : ""}
+            {isLoading && <Spinner />}
+          </Button>
+          {initialData && (
+            <DeleteItemButton
+              itemId={initialData.id}
+              itemCategory={initialData.category}
+            />
           )}
         </Flex>
-
-        <ItemPhoto
-          photoPublicId={photoPublicId}
-          setPhotoPublicId={(publicId) => setPhotoPublicId(publicId)}
-        />
       </Grid>
     </form>
   );

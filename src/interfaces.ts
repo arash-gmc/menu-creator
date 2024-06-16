@@ -28,3 +28,10 @@ export type RestaurantTypes = (typeof restaurantTypes)[number];
 export interface BackendError {
   message: string;
 }
+export interface ItemFormData {
+  name: string;
+  price: number;
+  category: string;
+  description: string;
+  photoPublicId?: string;
+}

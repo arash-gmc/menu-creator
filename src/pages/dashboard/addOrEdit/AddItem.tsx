@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { Heading } from "@radix-ui/themes";
 import { useTranslation } from "react-i18next";
-import ItemForm, { Data } from "./ItemForm";
+import ItemForm from "./ItemForm";
+import { ItemFormData } from "../../../interfaces";
 import showMessage from "../../../services/showMessage";
 import ApiClient from "../../../services/apiClient";
 
@@ -10,7 +11,7 @@ const AddItem = () => {
   const [isSending, setSending] = useState(false);
   const { t } = useTranslation();
   const apiClient = new ApiClient();
-  const addToserver = (data: Data) => {
+  const addToserver = (data: ItemFormData) => {
     setSending(true);
     apiClient
       .addItem(data)

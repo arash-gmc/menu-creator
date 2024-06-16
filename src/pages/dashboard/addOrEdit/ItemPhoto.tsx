@@ -14,8 +14,12 @@ const ItemPhoto = ({ photoPublicId, setPhotoPublicId }: Props) => {
   const { t: tr } = useTranslation();
   const t = tr("dashboard.itemForm") as any;
   return (
-    <Flex gap="3" align="start" justify={{ initial: "center", sm: "end" }}>
-      <Flex direction="column" gap="2">
+    <Flex gap="3" align="center" direction={{ initial: "column", sm: "row" }}>
+      {photoPublicId && <CldImage publicId={photoPublicId} size={200} />}
+      <Flex
+        direction={{ initial: "row", sm: "column" }}
+        gap={{ initial: "2", sm: "4" }}
+      >
         <UploadWidget
           onUploadDone={(publicId) => setPhotoPublicId(publicId)}
           folder="items"
@@ -32,7 +36,6 @@ const ItemPhoto = ({ photoPublicId, setPhotoPublicId }: Props) => {
           </Button>
         )}
       </Flex>
-      {photoPublicId && <CldImage publicId={photoPublicId} size={200} />}
     </Flex>
   );
 };

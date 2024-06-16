@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/themes";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
-import { Data } from "./ItemForm";
+import { ItemFormData } from "../../../interfaces";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import CategoryIcon, {
@@ -18,7 +18,7 @@ import CategoryIcon, {
 import { UserContext } from "../../../Providers";
 
 interface Props {
-  control: Control<Data, any>;
+  control: Control<ItemFormData, any>;
   changeCategory: (category: string) => void;
 }
 
