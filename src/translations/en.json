@@ -4,8 +4,9 @@
     "cancel": "Cancel"
   },
   "messages": {
-    "discountSubmit": "Your discounts has been submitted.",
+    "successMessage": "The process has successfuly done.",
     "generalError": "The proccess encountered an error.",
+    "discountSubmit": "Your discounts has been submitted.",
     "removeAllDiscounts": "All discounts has been removed.",
     "updateItem": "{{name}} has been updated successfully.",
     "changePrice": "Prices are changed successfully.",

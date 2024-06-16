@@ -4,8 +4,9 @@
     "cancel": "لغو"
   },
   "messages": {
-    "discountSubmit": "تخفیف های شما با موفقیت اعمال شد.",
+    "successMessage": "عملیات با موفقیت انجام شد.",
     "generalError": "فرآیند با خظا مواجه شد.",
+    "discountSubmit": "تخفیف های شما با موفقیت اعمال شد.",
     "removeAllDiscounts": "همه ی تخفیف ها موفقیت حذف شد.",
     "updateItem": "تغییرات شما با موفقیت بر روی {{name}} اعمال شد.",
     "changePrice": "قیمت ها با موفقیت تغییر کردند.",

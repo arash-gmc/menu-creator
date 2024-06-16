@@ -1,47 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Item, Restaurant } from "../interfaces";
-import { Container, Flex, Text } from "@radix-ui/themes";
-import axios from "axios";
+import useMenuItems from "../hooks/useMenuItems";
 import PlainDark from "../themes/PlainDark";
 import PlainLight from "../themes/PlainLight";
+import { Item, Restaurant } from "../interfaces";
+import { ReactNode } from "react";
+
+interface ThemeProp {
+  restaurant: Restaurant | undefined;
+  items: Item[] | undefined;
+}
 
 const Menu = () => {
   const { restaurantName } = useParams();
-  const { data: items } = useQuery<Item[]>({
-    queryKey: [restaurantName, "items"],
-    queryFn: () =>
-      axios.get("/api/items/get/" + restaurantName).then((res) => res.data),
-  });
+  if (!restaurantName) return null;
+  const entrance = useSearchParams()[0].get("i");
+  const { items, restaurant, error } = useMenuItems(restaurantName, entrance);
 
-  const { data: restaurant } = useQuery<Restaurant>({
-    queryKey: [restaurantName],
-    queryFn: () =>
-      axios
-        .get("/api/restaurants/get/" + restaurantName)
-        .then((res) => res.data),
-  });
-  const [searchParams] = useSearchParams();
-  const interance = searchParams.get("i");
-  useEffect(() => {
-    if (restaurant)
-      axios
-        .post("/api/restaurants/add-view", {
-          restaurantId: restaurant?.id,
-          interance,
-        })
-        .then((r) => console.log("successfull"))
-        .catch((e) =>
-          console.log("There is a problem with add view record.", e)
-        );
-  }, [restaurant]);
-  if (restaurant?.theme === "plain-dark")
-    return <PlainDark restaurant={restaurant} items={items} />;
-  if (restaurant?.theme === "plain-light")
-    return <PlainLight restaurant={restaurant} items={items} />;
+  const props: ThemeProp = { restaurant, items };
+  const theme = restaurant?.theme;
 
-  return <PlainLight restaurant={restaurant} items={items} />;
+  const themeMap: Record<string, ReactNode> = {
+    "plain-dark": <PlainDark {...props} />,
+    "plain-light": <PlainDark {...props} />,
+  };
+
+  if (theme && themeMap[theme]) return themeMap[theme];
+  return <PlainLight {...props} />;
 };
 
 export default Menu;

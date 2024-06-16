@@ -2,6 +2,7 @@ import { Theme } from "@radix-ui/themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import react, { ReactNode, useEffect, useState } from "react";
 import axiosConfig from "./services/axios";
+import { Toaster } from "react-hot-toast";
 
 export interface User {
   id: string;
@@ -27,6 +28,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <UserContext.Provider value={user}>
       <QueryClientProvider client={client}>
         <Theme>{children}</Theme>
+        <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
       </QueryClientProvider>
     </UserContext.Provider>
   );

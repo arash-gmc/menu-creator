@@ -20,7 +20,6 @@ const Dashboard = () => {
             <Outlet />
           </Box>
         </Flex>
-        <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
       </Container>
     </>
   );
