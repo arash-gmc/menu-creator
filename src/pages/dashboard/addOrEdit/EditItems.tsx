@@ -7,11 +7,14 @@ import { useTranslation } from "react-i18next";
 import ItemForm from "./ItemForm";
 import { ItemFormData } from "../../../interfaces";
 import ItemSelector from "./ItemSelector";
+import ApiClient from "../../../services/apiClient";
+import showMessage from "../../../services/showMessage";
 
 const EditItem = () => {
   const { data: items, isLoading } = useItems();
   const { changeName, editingItemId } = useMyStore();
   const { t } = useTranslation();
+  const apiClient = new ApiClient();
 
   const editOnServer = (data: ItemFormData) => {
     const updateObj = {
@@ -19,9 +22,10 @@ const EditItem = () => {
       id: editingItemId,
       category: data.category === "-" ? null : data.category,
     };
-    axios.put("/api/items/edit-one", updateObj).then();
-    toast.success(t("messages.updateItem", { name: data.name }));
-    changeName(editingItemId, data.name);
+    apiClient.editItem(updateObj).then((res) => {
+      showMessage("updateItem", { name: data.name });
+      changeName(editingItemId, data.name);
+    });
   };
 
   return (

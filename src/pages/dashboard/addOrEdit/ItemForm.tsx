@@ -52,7 +52,7 @@ const ItemForm = ({
     <form
       onSubmit={handleSubmit((data) => {
         onFormSubmit({ ...data, photoPublicId: photoPublicId });
-        resetFields();
+        if (application === "add") resetFields();
       })}
     >
       <div className="grid grid-cols-6 gap-3">

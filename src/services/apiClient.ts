@@ -25,10 +25,8 @@ class ApiClient {
       showError();
     });
 
-  getViews = () =>
-    AxiosInstance.get("/restaurants/get-views")
-      .then((res) => res.data)
-      .catch((e) => showError());
+  editItem = (updateObj: any) =>
+    axios.put("/api/items/edit-one", updateObj).catch((e) => showError());
 
   //restaurant
   getRestaurant = (restaurantUsername: string) =>
@@ -43,6 +41,11 @@ class ApiClient {
     })
       .then((res) => null)
       .catch((e) => console.log("there is a problem with add view record"));
+
+  getViews = () =>
+    AxiosInstance.get("/restaurants/get-views")
+      .then((res) => res.data)
+      .catch((e) => showError());
 }
 
 export default ApiClient;
