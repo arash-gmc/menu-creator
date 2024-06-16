@@ -4,11 +4,21 @@ import { UserContext } from "../../../Providers";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+const manageMenuLinks: string[] = [
+  "add",
+  "edit",
+  "price",
+  "discount",
+  "theme",
+  "footnote",
+];
+
 const NavbarMenu = () => {
-  const user = useContext(UserContext);
   const { t: tr, i18n } = useTranslation();
-  const navigate = useNavigate();
   const t = tr("dashboard.navbar") as any;
+
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
   if (!user) return null;
   return (
     <DropdownMenu.Root>
@@ -30,24 +40,14 @@ const NavbarMenu = () => {
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger>{t.manage}</DropdownMenu.SubTrigger>
           <DropdownMenu.SubContent>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/add")}>
-              {t.add}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/edit")}>
-              {t.edit}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/price")}>
-              {t.price}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("/dashboard/discount")}>
-              {t.discount}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("#")}>
-              {t.theme}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => navigate("#")}>
-              {t.footnote}
-            </DropdownMenu.Item>
+            {manageMenuLinks.map((link) => (
+              <DropdownMenu.Item
+                key={link}
+                onClick={() => navigate("/dashboard/" + link)}
+              >
+                {t[link]}
+              </DropdownMenu.Item>
+            ))}
           </DropdownMenu.SubContent>
         </DropdownMenu.Sub>
         <DropdownMenu.Item>{t.setting}</DropdownMenu.Item>
