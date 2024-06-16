@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Spinner from "../../../components/Spinner";
-import UploadWidget from "../../../components/UploadWidget";
 import { Item } from "../../../interfaces";
 import { useTranslation } from "react-i18next";
 import SelectCategory from "./SelectCategory";
 import DeleteItemButton from "./DeleteItemButton";
-import CldImage from "../../../components/CldImage";
+import ItemPhoto from "./ItemPhoto";
 
 interface Props {
   application: "add" | "update";
@@ -58,7 +57,7 @@ const ItemForm = ({
     toast.success(tr("messages.addItem", { name: data.name }));
   };
   const onFail = (error: AxiosError) => {
-    toast.error(`Something unexpected happened. Please try again later.`);
+    toast.error(tr("messages.generalError"));
     console.log(error);
   };
 
@@ -160,26 +159,10 @@ const ItemForm = ({
           )}
         </Flex>
 
-        <Flex gap="3" align="start" justify={{ initial: "center", sm: "end" }}>
-          <Flex direction="column" gap="2">
-            <UploadWidget
-              onUploadDone={(publicId) => setPhotoPublicId(publicId)}
-              folder="items"
-              label={tr("dashboard.itemForm.uploadPhoto")}
-            />
-            {photoPublicId && (
-              <Button
-                variant="surface"
-                color="red"
-                type="button"
-                onClick={() => setPhotoPublicId(undefined)}
-              >
-                {t.removePhoto}
-              </Button>
-            )}
-          </Flex>
-          {photoPublicId && <CldImage publicId={photoPublicId} size={200} />}
-        </Flex>
+        <ItemPhoto
+          photoPublicId={photoPublicId}
+          setPhotoPublicId={(publicId) => setPhotoPublicId(publicId)}
+        />
       </Grid>
     </form>
   );

@@ -2,7 +2,6 @@ import { AdvancedImage } from "@cloudinary/react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 import { Cloudinary } from "@cloudinary/url-gen/index";
-import React from "react";
 
 interface Props {
   publicId?: string;

@@ -4,7 +4,6 @@ import { Item } from "../interfaces";
 import useMyStore from "../store";
 
 const useItemsInGroups = (items: Item[] | undefined) => {
-  //const [itemGroups, setItemGroups] = useState<Item[][]>();
   const { itemGroups, setItemGroups } = useMyStore();
   useEffect(() => {
     if (items) {
